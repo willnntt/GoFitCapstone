@@ -1,89 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <title>GoFit - Dashboard</title>
+  <meta charset="UTF-8">
+  <title>GoFit - Dashboard</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <!-- USER MENU -->
-    <div>
-        <img src="" alt="Placeholder img">
-        <h1>Welcome, USER!</h1>   
-        <h2>Daily Streak: 2 Days</h2>
-        
+
+<!-- sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-content">
+      <!-- icon -->
+      <div class="icon-btn">
+        <i class="fas fa-bars"></i>
+      </div>
+
+      <div class="icon-btn">
+        <i class="fas fa-pen"></i>
+      </div>
+
+      <!-- label -->
+      <div class="labels">
+        <div class="label">
+            <i class="fa-solid fa-star"></i>
+            Label
+        </div>
+        <div class="label">
+            <i class="fa-solid fa-star"></i>
+            Label
+        </div>
+        <div class="label">
+            <i class="fa-solid fa-star"></i>
+            Label
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- user -->
+    <div class="user-info">
+      <i class="fas fa-user-circle"></i>
+      <div class="user-text">
+        <div>Welcome</div>
+        <strong>User</strong>
+      </div>
     </div>
 
-    <!-- EVENTS -->
-    <div class="gardening-projects">
-        <h1>GARDENING EVENTS</h1>
-        
-        <div class="slider swiper">
-            <div class="image-slider">
-                <ul class="event-list swiper-wrapper"></ul>
-
-                <div class="swiper-pagination"></div>
-                <div class="swiper-slide-button swiper-button-prev"></div>
-                <div class="swiper-slide-button swiper-button-next"></div>
-            </div>
-        </div>
-
-        <div class="new-event">
-            <button id="create-event-openpopup">CREATE A NEW EVENT</button>
-        </div>
+    <!-- bar -->
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Hinted search text">
     </div>
 
-    <!-- USER GOALS -->
-    <div class="user-goals">
-        <div class="image-slider">
-            <ul class="event-list swiper-wrapper" id="1">
-                <li class="event-entry swiper-slide">
-                    <a href="#" class="event-link">
-                        <h2>Slider here:</h2>
-                        <p>2,030 Remaining</p>
-                        <p>Calorie Goal: 2,030</p>
-                        <p>Calories Consumed: 100</p>
-                        hyperlink to calorie page                          
-                    </a>
-                </li>
-
-                <li class="event-entry swiper-slide" id="2">
-                    <a href="#" class="event-link">
-                        Weight Graph
-                        <br>
-                        Insert weight popup                      
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="swiper-pagination"></div>
-        <div class="swiper-slide-button swiper-button-prev"></div>
-        <div class="swiper-slide-button swiper-button-next"></div>
+    <!-- progress -->
+    <div class="progress-section">
+      <div class="progress-header">
+        <div>Your Progress</div>
+          <a href="#" class="view-all">
+            View all <i class="fas fa-arrow-right"></i>
+          </a>
+      </div>
     </div>
 
-
-    <!-- STATS MENU -->
-    <div>
-        <div>
-            <p>Water Drank: 2L/3L</p>
-            Opens a popup menu
-        </div>
-        
-        <div>
-            <p>Sleep Duration: 10 Hours</p>
-            Opens a popup menu
-        </div>
+    <div class="progress-photos">
+      <div class="photo"><img src="" alt="photo"></div>
+      <div class="photo"></div>
+      <div class="photo"></div>
+      <div class="photo"></div>
+      <div class="photo"></div>
+      <div class="photo"></div>
+    </div>
+    
+    <!-- exercises -->
+    <div class="exercise-section">
+      <div class="exercise-header">
+      <div class="exercise-title"><u>Last Exercises</u></div>
+        <a href="#" class="view-all">
+          View all <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
     </div>
 
-    <!-- NAVIGATION BUTTONS -->
-    <div>
-        <button>Dashboard</button>
-        <button>Exercise</button>
-        <button>Calorie Tracker</button>
-        <button>Diet Plan</button>
-        <button>User Settings</button>
+    <div class="exercise-items">
+      <div class="exercise-item">
+        <span>Run</span>
+      </div>
+      <div class="exercise-item">
+        <span>Workout</span>
+      </div>
+      <div class="exercise-item">
+        <span>Yoga</span>
+      </div>
     </div>
+
+  </div>
+
 </body>
 </html>
