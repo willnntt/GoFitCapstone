@@ -1,0 +1,116 @@
+/*----------Universal------------------*/
+input:hover {
+    border-color: #531c9b;
+    box-shadow: 0 0 10px #531c9b;
+}
+button:hover {
+    border-color: #531c9b;
+    box-shadow: 0 0 10px #531c9b;
+}
+/*-------------Sign Up---------------------*/
+.signup-box{
+    background-color: rgb(148, 146, 146);
+    width: 800px;
+    height: 500px;
+    margin: auto;
+    margin-top: 80px;
+    padding: 10px;
+}
+.signup-text{
+    color: rgb(0, 0, 0);
+    padding-top: 70px;
+    font-size: 20px;
+    text-align: center;
+}
+.signup-email{
+    margin: 4px;
+}
+.signup-text input{
+    border-radius: 5px;
+}
+#text{
+    height: 25px;
+    width: 300px;
+    border-radius: 5px;
+    border-style: none;
+}
+.signup-text button{
+    color: rgb(255, 255, 255);
+    border-style: none;
+    background-color: black;
+    padding: 7px 0px;
+    width: 100px;
+    margin: 10px ;
+    cursor: pointer;
+    border-radius: 77px;
+}
+
+/*----------------User Info---------------------*/
+.user_info_box{
+    background-color: rgb(148, 146, 146);
+    width: 400px;
+    height: 800px;
+    margin: auto;
+    margin-top: 80px;
+    padding: 10px;
+}
+.userinfo{
+    color: rgb(0, 0, 0);
+    padding-top: 80px;
+    font-size: 20px;
+    text-align: center;
+}
+.userinfo text{
+    border-radius: 5px;
+}
+.username{
+    margin: 20px;
+}
+.gender{
+    margin: 20px;
+}
+#gender{
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+}
+.currentweight{
+    margin: 20px;
+}
+.userheight{
+    margin: 20px;
+}
+.targetweight{
+    margin: 20px;
+}
+.userinfo button{
+    background-color: black;
+    color: white;
+    border-style: none;
+    padding: 17px;
+    border-radius: 77px;
+    width: 100px;
+}
+/*--------------------Login------------------------*/
+.Login{
+    background-color: rgb(148, 146, 146);
+    width: 400px;
+    height: 800px;
+    margin: auto;
+    margin-top: 80px;
+    padding: 10px;
+}
+.Login-text{
+    color: rgb(0, 0, 0);
+    padding-top: 80px;
+    font-size: 20px;
+    text-align: center;
+}
+.Login-text button{
+    background-color: black;
+    color: white;
+    border-style: none;
+    padding: 17px;
+    border-radius: 77px;
+    width: 100px;
+}
