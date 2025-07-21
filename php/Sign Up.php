@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | GoFit</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sign Up | GoFit</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <div class="Login">
-        <div class="Login-text">
-            Login 
+    <div class="signup-box">
+        <div class="signup-text">
+            Create an account 
             <br>
             <br>
-            Enter your email
-            <br>
+            <div class="signup-email">
+            Enter your email to sign up 
             <br>
             <input type="text" id="text"  placeholder="Name@gmail.com">
+            </div>
             <br>
-            <br>
-            Enter your Password
-            <br>
+            <div class="signup-password">
+            Enter your Password 
             <br>
             <input type="text" id="text"  placeholder="Password">
-            <br>
+            </div>
             <br>
             <button>Continue</button>
             <br>
@@ -33,5 +33,7 @@
         
 
     </div>
+
+    
 </body>
 </html>
