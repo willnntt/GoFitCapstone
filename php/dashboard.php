@@ -15,7 +15,7 @@
     $result = mysqli_query($conn, $sql);
 
     if ($row = mysqli_fetch_assoc($result)) {
-        $username = htmlspecialchars($row['username']);
+        $username = htmlspecialchars($row['username']); // Prevent XSS
     }
 
 ?>
@@ -42,35 +42,20 @@
             <i class="fas fa-pen"></i>
         </div>
 
-        <!-- navigation -->
+        <!-- label -->
         <div class="labels">
-            <button class="label">
-                <a href="dashboard.php">
-                    <i class="fa-solid fa-star"></i>
-                    Dashboard                
-                </a>
-            </button>
-
-            <button class="label">
-                <a href="workoutlog.php">
-                    <i class="fa-solid fa-star"></i>
-                    Workout Log                
-                </a>
-            </button>
-            
-            <button class="label">
-                <a href="calorietracker.php">
-                    <i class="fa-solid fa-star"></i>
-                    Calorie Tracker                
-                </a>
-            </button>
-
-            <button class="label">
-                <a href="dashboard.php">
-                    <i class="fa-solid fa-star"></i>
-                    Diet and Workout Plans           
-                </a>
-            </button>
+            <div class="label">
+                <i class="fa-solid fa-star"></i>
+                Label
+            </div>
+            <div class="label">
+                <i class="fa-solid fa-star"></i>
+                Label
+            </div>
+            <div class="label">
+                <i class="fa-solid fa-star"></i>
+                Label
+            </div>
         </div>
         </div>
     </div>
