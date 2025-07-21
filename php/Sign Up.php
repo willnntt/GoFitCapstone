@@ -33,6 +33,7 @@
 <body>
     <div class="signup-box">
         <div class="signup-text">
+            Welcome to GoFit
             Create an account 
             <br>
             <br>
