@@ -2,13 +2,13 @@
     include 'conn.php';
 
     // Handle form submission to create new plan
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'], $_POST['description'], $_POST['duration_days'])) {
-        $title = mysqli_real_escape_string($conn, $_POST['title']);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['description'], $_POST['duration_days'])) {
+        $name = mysqli_real_escape_string($conn, $_POST['name']);
         $description = mysqli_real_escape_string($conn, $_POST['description']);
         $duration = intval($_POST['duration_days']);
 
-        $insertQuery = "INSERT INTO diet_plans (title, description, duration_days)
-                        VALUES ('$title', '$description', $duration)";
+        $insertQuery = "INSERT INTO diet_plans (name, description, duration_days)
+                        VALUES ('$name', '$description', $duration)";
         mysqli_query($conn, $insertQuery);
         header("Location: admin_diet_plans.php"); // Refresh page to update list
         exit;
@@ -42,8 +42,8 @@
         <a href="admin_dashboard.php" class="back-button">← Back to Dashboard</a>
         <h1>Create New Diet Plan</h1>
         <form method="POST" action="">
-        <label for="title">Plan Title</label>
-        <input type="text" name="title" id="title" required>
+        <label for="name">Plan Name</label>
+        <input type="text" name="name" id="name" required>
 
         <label for="description">Description</label>
         <textarea name="description" id="description" rows="3" required></textarea>
@@ -59,7 +59,7 @@
         <thead>
             <tr>
             <th>ID</th>
-            <th>Title</th>
+            <th>Name</th>
             <th>Description</th>
             <th>Duration (Days)</th>
             <th>Actions</th>
@@ -69,11 +69,11 @@
             <?php foreach ($dietPlans as $plan): ?>
             <tr>
                 <td><?= $plan['id'] ?></td>
-                <td><?= htmlspecialchars($plan['title']) ?></td>
+                <td><?= htmlspecialchars($plan['name']) ?></td>
                 <td><?= htmlspecialchars($plan['description']) ?></td>
                 <td><?= $plan['duration_days'] ?></td>
                 <td>
-                <a href="view_diet_plan.php?id=<?= $plan['id'] ?>">View</a> |
+                <a href="admin_view_diet_plan.php?id=<?= $plan['id'] ?>">View</a> |
                 <a href="edit_diet_plan.php?id=<?= $plan['id'] ?>">Edit</a>
                 </td>
             </tr>
