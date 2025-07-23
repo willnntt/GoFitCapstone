@@ -1,23 +1,6 @@
 <?php
     include 'conn.php';
     
-    session_start();
-
-    // Check if the user is logged in
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: login.php");
-        exit();
-    }       
-
-    // Fetch the username from the database
-    $user_id = $_SESSION['user_id'];
-    $sql = "SELECT name FROM users WHERE id = $user_id";
-    $result = mysqli_query($conn, $sql);
-
-    if ($row = mysqli_fetch_assoc($result)) {
-        $username = htmlspecialchars($row['username']);
-    }
-
 ?>
 
 <!DOCTYPE html>

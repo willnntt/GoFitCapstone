@@ -1,39 +1,33 @@
 <?php
     include 'conn.php';
-    
     session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up | GoFit</title>
+    <title>Login | GoFit</title>
 
     <link rel="stylesheet" href="../css/style.css">
-
 </head>
 <body>
-    <div class="signup-box">
-        <div class="signup-text">
-
-            Welcome to GoFit
-            <br>
-            Create an account 
+    <div class="Login">
+        <div class="Login-text">
+            Login
             <br>
             <br>
-            <div class="signup-email">
-            Enter your email to sign up 
+            Enter your email
+            <br>
             <br>
             <input type="text" id="text"  placeholder="Name@gmail.com">
-            </div>
             <br>
-            <div class="signup-password">
-            Enter your Password 
+            <br>
+            Enter your Password
+            <br>
             <br>
             <input type="text" id="text"  placeholder="Password">
-            </div>
+            <br>
             <br>
             <button>Continue</button>
             <br>
@@ -41,10 +35,7 @@
             <br>
             <button>Login</button>
         </div>
-        
 
     </div>
-
-    
 </body>
 </html>
