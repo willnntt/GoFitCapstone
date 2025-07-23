@@ -17,6 +17,7 @@
 <body>
     <div class="signup-box">
         <div class="signup-text">
+
             Welcome to GoFit
             <br>
             Create an account 
