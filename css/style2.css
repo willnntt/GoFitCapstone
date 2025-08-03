@@ -1,0 +1,143 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: grey;
+  background-image:url(..);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.header {
+  background-color: white;
+  color: black;
+  padding: 5px;
+  text-align: center;
+  font-size: 15px;
+}
+/*----------Universal------------------*/
+input:hover {
+    border-color: grey;
+    box-shadow: 0 0 10px grey;
+}
+button:hover {
+    border-color:grey;
+    box-shadow: 0 0 10px grey;
+}
+/*-------------Sign Up---------------------*/
+.signup-box {
+    background-color: white;
+    width: 800px;
+    height: 500px;
+    margin: auto;
+    margin-top: 70px;
+    padding: 10px;
+    text-align: center;
+}
+
+.signup-text{
+    color:black;
+    padding-top: 90px;
+    font-size: 20px;
+    text-align: center;
+}
+.signup-title{
+    font-weight: bold;
+}
+.signup-email{
+    margin: 4px;
+}
+.signup-text input{
+    border-radius: 5px;
+}
+#text{
+    height: 25px;
+    width: 300px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: 	#3a3a3a;
+}
+.signup-text button{
+    color:white;
+    border-style: none;
+    background-color:Black;
+    padding: 10px;
+    width: 100px;
+    margin: 10px ;
+    cursor: pointer;
+    border-radius: 77px;
+}
+
+/*----------------User Info---------------------*/
+.user_info_box{
+    background-color: rgb(148, 146, 146);
+    width: 400px;
+    height: 800px;
+    margin: auto;
+    margin-top: 80px;
+    padding: 10px;
+}
+.userinfo{
+    color: rgb(0, 0, 0);
+    padding-top: 80px;
+    font-size: 20px;
+    text-align: center;
+}
+.userinfo text{
+    border-radius: 5px;
+}
+.username{
+    margin: 20px;
+}
+.gender{
+    margin: 20px;
+}
+#gender{
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+}
+.currentweight{
+    margin: 20px;
+}
+.userheight{
+    margin: 20px;
+}
+.targetweight{
+    margin: 20px;
+}
+.userinfo button{
+    background-color: black;
+    color: white;
+    border-style: none;
+    padding: 17px;
+    border-radius: 77px;
+    width: 100px;
+}
+/*--------------------Login------------------------*/
+.Login{
+    background-color:white;
+    width: 800px;
+    height: 500px;
+    margin: auto;
+    margin-top: 80px;
+    padding: 10px;
+}
+.Login-text{
+    color: rgb(0, 0, 0);
+    padding-top: 80px;
+    font-size: 20px;
+    text-align: center;
+}
+.Login-title{
+    font-weight: bold;
+}
+.Login-text button{
+    background-color:  black;
+    color: white;
+    border-style: none;
+    padding: 10px; 
+    border-radius: 77px;
+    margin: 10px;
+    cursor: pointer; 
+    width: 100px;
+}
