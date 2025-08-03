@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calorie Tracker</title>
+  <link rel="stylesheet" href="../css/calorietracker.css"/>
+</head>
+
+<body>
+<div class="header">
+  <h2 style="margin: 0;">Calorie Tracker</h2>
+  <button class="add-btn" onclick="openMenu()">＋</button>
+</div>
+
+<div class="donut-chart" id="donut">
+  <span id="remaining">Remaining<br>2000 Cal</span>
+</div>
+
+<h2>Calories Consumed</h2>
+
+<div class="meal" onclick="toggleList('breakfast')">
+  Breakfast ⌄
+  <div class="food-list" id="breakfast-list">
+    <ul></ul>
+  </div>
+</div>
+
+<div class="meal" onclick="toggleList('lunch')">
+  Lunch ⌄
+  <div class="food-list" id="lunch-list">
+    <ul></ul>
+  </div>
+</div>
+
+<div class="meal" onclick="toggleList('dinner')">
+  Dinner ⌄
+  <div class="food-list" id="dinner-list">
+    <ul></ul>
+  </div>
+</div>
+
+<div class="overlay" onclick="closeMenu()"></div>
+
+<div class="food-menu" id="foodMenu">
+  <h3>Select Food</h3>
+  
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Hinted search text">
+    <button onclick="searchFood()">🔍</button>
+  </div>
+
+  <div class="food-scroll-list" id="foodScrollList">
+  </div>
+
+  <br/>
+  <label>Choose Meal:</label>
+  <select id="mealSelect">
+    <option value="breakfast">Breakfast</option>
+    <option value="lunch">Lunch</option>
+    <option value="dinner">Dinner</option>
+  </select>
+</div>
+
+<button class="clear-btn" onclick="clearAllMeals()">Clear All</button>
+
+<script>
+  const foodData = [
+    { name: "White rice(100g)", calories: 130 },
+    { name: "Apple(100g)", calories: 52 },
+    { name: "Banana(100g)", calories: 89 },
+    { name: "Chicken Breast(140g)", calories: 231 },
+    { name: "Avocado(100g)", calories: 250 },
+    { name: "Fish(100g)", calories: 206 },
+    { name: "Egg(1)", calories: 72 },
+    { name: "Broccoli(150g)", calories: 51 },
+  ];
+
+  let totalCalories = 0;
+  const maxCalories = 2000;
+
+  function openMenu() {
+    document.querySelector('.overlay').style.display = 'block';
+    document.getElementById('foodMenu').style.display = 'block';
+    displayFoodList(foodData);
+  }
+
+  function closeMenu() {
+    document.querySelector('.overlay').style.display = 'none';
+    document.getElementById('foodMenu').style.display = 'none';
+  }
+
+  function toggleList(meal) {
+    const list = document.getElementById(`${meal}-list`);
+    list.style.display = list.style.display === 'block' ? 'none' : 'block';
+  }
+
+
+  function displayFoodList(foods) {
+    const listContainer = document.getElementById('foodScrollList');
+    listContainer.innerHTML = '';
+    foods.forEach(food => {
+      const div = document.createElement('div');
+      div.className = 'food-item';
+      div.textContent = `${food.name} ${food.calories} cal, Brand, Unit`;
+      div.onclick = () => selectFoodItem(food.name, food.calories);
+      listContainer.appendChild(div);
+    });
+  }
+
+
+  function searchFood() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const filtered = foodData.filter(f =>
+      f.name.toLowerCase().includes(query)
+    );
+    displayFoodList(filtered);
+  }
+
+
+  function selectFoodItem(foodName, calories) {
+    const meal = document.getElementById('mealSelect').value;
+    const ul = document.querySelector(`#${meal}-list ul`);
+    const li = document.createElement('li');
+    li.textContent = `${foodName} - ${calories} Cal`;
+    ul.appendChild(li);
+
+    totalCalories += calories;
+    updateChart();
+    closeMenu();
+  }
+
+  function updateChart() {
+    const remaining = Math.max(0, maxCalories - totalCalories);
+    const percent = ((remaining / maxCalories) * 100).toFixed(0);
+    document.getElementById('remaining').innerHTML = `Remaining<br>${remaining} Cal`;
+
+    const chart = document.getElementById('donut');
+    chart.style.background = `conic-gradient(#c8aaf5 ${100 - percent}%, #eee 0%)`;
+  }
+
+function clearAllMeals() {
+  ['breakfast', 'lunch', 'dinner'].forEach(meal => {
+    const ul = document.querySelector(`#${meal}-list ul`);
+    ul.innerHTML = '';
+  });
+
+  totalCalories = 0;
+  updateChart();
+}
+</script>
+
+</body>
+</html>
