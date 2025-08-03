@@ -4,45 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exercise Database</title>
-    <link rel="stylesheet" href="../css/admin_database.css">
+    <link rel="stylesheet" href="../../css/admin_database.css">
 </head>
 <body>
-    <div class="wrapper">
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="menu-toggle" onclick="toggleSidebar()">
-                <img src="../assets/hamburger.png" alt="Menu" class="hamburger-icon">
+                <img src="../../assets/icons/hamburger.png" alt="Menu" class="hamburger-icon">
             </div>
             
             <ul>
-                <li>
-                    <a href="user_database.html">
+                <li class="active">
+                    <a href="user_database.php">
                         <div class="nav-item">
-                            <img src="../assets/user.png" alt="User Icon" class="icon">
+                            <img src="../../assets/icons/user.png" alt="User Icon" class="icon">
                             <span>User Database</span>
                         </div>
                     </a>
                 </li>
-                <li class="active">
-                    <a href="exercise_database.html">
+                <li>
+                    <a href="exercise_database.php">
                         <div class="nav-item">
-                            <img src="../assets/exercise.png" alt="Exercise Icon" class="icon">
+                            <img src="../../assets/icons/exercise.png" alt="Exercise Icon" class="icon">
                             <span>Exercise Database</span>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a href="diet_database.html">
+                    <a href="diet_database.php">
                         <div class="nav-item">
-                            <img src="../assets/diet.png" alt="Diet Icon" class="icon">
+                            <img src="../../assets/icons/diet.png" alt="Diet Icon" class="icon">
                             <span>Diet Plan Database</span>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a href="food_database.html">
+                    <a href="food_database.php">
                         <div class="nav-item">
-                            <img src="../assets/food.png" alt="Food Icon" class="icon">
+                            <img src="../../assets/icons/food.png" alt="Food Icon" class="icon">
                             <span>Foods Database</span>
                         </div>
                     </a>
@@ -84,6 +83,6 @@
             </div>
         </div>
     </div>
-    <script src="../javascript/navigation_bar.js"></script>
+    <script src="../../javascript/navigation_bar.js"></script>
 </body>
 </html>

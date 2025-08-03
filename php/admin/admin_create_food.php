@@ -4,9 +4,9 @@
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $brand = mysqli_real_escape_string($conn, $_POST['brand']);
     $calories = intval($_POST['calories']);
-    $carbs = floatval($_POST['carbs']);
-    $protein = floatval($_POST['protein']);
-    $fats = floatval($_POST['fats']);
+    $carbs = intval($_POST['carbs']);
+    $protein = intval($_POST['protein']);
+    $fats = intval($_POST['fats']);
 
     $query = "INSERT INTO foods (name, brand, calories, carbs, protein, fats)
             VALUES ('$name', '$brand', '$calories', '$carbs', '$protein', '$fats')";
