@@ -1,7 +1,4 @@
 <?php
-    include 'conn.php';
-    
-    session_start();
 
 ?>
 <!DOCTYPE html>
@@ -11,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up | GoFit</title>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style2.css">
 
 </head>
 <body>
