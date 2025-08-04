@@ -11,8 +11,10 @@
 
     $sql = "
         SELECT 
+            m.log_id AS id, 
             m.meal_type, 
             f.name, 
+            f.brand,
             f.portion_unit, 
             f.calories, 
             f.carbs, 
@@ -45,7 +47,9 @@
         }
 
         $meals[$meal][] = [
+            'id' => $row['id'],
             'name' => $row['name'],
+            'brand' => $row['brand'],
             'amount' => (float)$row['amount'],
             'unit' => $row['portion_unit'],
             'calories' => (float)$row['calories'],

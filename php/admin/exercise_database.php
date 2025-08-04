@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../../css/admin_database.css">
 </head>
 <body>
+    <div class="wrapper">
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="menu-toggle" onclick="toggleSidebar()">

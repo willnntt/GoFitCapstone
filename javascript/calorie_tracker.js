@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.success) {
                     console.log('Meal logged successfully');
+                    loadMealLogs();
                 } else {
                     console.error('Failed to log meal:', data.message);
                 }
@@ -137,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadMealLogs() {
+        console.log('loadMealLogs() was called');
         fetch('get_meal_log.php')
             .then(res => res.json())
             .then(data => {
@@ -145,35 +147,77 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                const meals = data.data;
+                const mealTypes = ['breakfast', 'lunch', 'dinner', 'snacks'];
+                totalCalories = 0; // reset before recalculating
 
-                Object.entries(meals).forEach(([mealType, entries]) => {
-                    const listEl = document.querySelector(`#${mealType}-list ul`);
-                    const summaryEl = document.querySelector(`#${mealType}-summary`);
+                mealTypes.forEach(meal => {
+                    const list = document.querySelector(`#${meal}-list ul`);
+                    const summary = document.getElementById(`${meal}-summary`);
 
-                    listEl.innerHTML = '';
-                    let totalCals = 0, totalCarbs = 0, totalProtein = 0, totalFats = 0;
+                    // clear existing list
+                    list.innerHTML = '';
+                    let mealCal = 0, carbs = 0, protein = 0, fats = 0;
 
-                    entries.forEach(entry => {
-                        const { name, amount, unit, calories, carbs, protein, fats } = entry;
-                        const totalCal = calories * amount;
+                    (data.data[meal] || []).forEach(item => {
+                        const portionCalories = item.calories * item.amount;
+                        mealCal += portionCalories;
+                        carbs += item.carbs * item.amount;
+                        protein += item.protein * item.amount;
+                        fats += item.fats * item.amount;
+
                         const li = document.createElement('li');
-                        li.textContent = `${name} - ${amount} × ${unit} = ${totalCal} kcal`;
-                        listEl.appendChild(li);
+                        console.log('ITEM:', item);
 
-                        totalCals += calories * amount;
-                        totalCarbs += carbs * amount;
-                        totalProtein += protein * amount;
-                        totalFats += fats * amount;
+                        li.innerHTML = `
+                            ${item.name} (${item.brand}): ${item.amount} × ${item.unit} = ${portionCalories} kcal
+                            <span class="material-symbols-outlined delete-btn" data-id="${item.id}">delete</span>
+                        `;
+
+                        li.classList.add('food-log-item');
+
+                        // attach delete listener
+                        li.querySelector('.delete-btn').addEventListener('click', function (event) {
+                            event.preventDefault();
+
+                            if (confirm('Delete this log?')) {
+                                const logId = this.dataset.id;
+                                const url = `delete_meal_log.php?log_id=${logId}`;
+                                console.log('Deleting log with ID:', logId);
+                                console.log('Fetch URL:', url);
+
+                                fetch(url, { method: 'GET' })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            location.reload();
+                                        } else {
+                                            alert('Failed to delete log.');
+                                        }
+                                    })
+                                    .catch(err => {
+                                        console.error('Fetch error:', err);
+                                        alert('Something went wrong.');
+                                    });
+                            }
+                        });
+
+                        list.appendChild(li);
                     });
 
-                    summaryEl.innerHTML = `
-                        <strong>Total:</strong> ${totalCals.toFixed(0)} kcal,
-                        <strong>Carbs:</strong> ${totalCarbs.toFixed(1)}g,
-                        <strong>Protein:</strong> ${totalProtein.toFixed(1)}g,
-                        <strong>Fats:</strong> ${totalFats.toFixed(1)}g
-                    `;
+                    // update total calories
+                    totalCalories += mealCal;
+
+                    // update summary
+                    summary.innerHTML = `
+                    <small>
+                        ${mealCal} kcal | 
+                        C: ${carbs.toFixed(1)}g 
+                        P: ${protein.toFixed(1)}g 
+                        F: ${fats.toFixed(1)}g
+                    </small>
+                `;
                 });
+
+                updateChart();
             })
             .catch(err => {
                 console.error('Error fetching meal log:', err);

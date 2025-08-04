@@ -11,13 +11,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calorie Tracker</title>
   <link rel="stylesheet" href="../../css/calorietracker.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
 </head>
 
 <body>
   <div class="wrapper">
     <!-- Sidebar -->
     <div class="sidebar">
-      <div class="menu-toggle" onclick="toggleSidebar()">
+      <div class="menu-toggle">
         <img src="../../assets/icons/hamburger.png" alt="Menu" class="hamburger-icon">
       </div>
 
@@ -70,7 +72,7 @@
 
       <h2>Calories Consumed</h2>
 
-      <div class="meal" onclick="toggleList('breakfast')">
+      <div class="meal">
         <div class="meal-header">
           <span class="meal-title">Breakfast ⌄</span>
           <div class="meal-summary" id="breakfast-summary"></div>
@@ -80,7 +82,7 @@
         </div>
       </div>
 
-      <div class="meal" onclick="toggleList('lunch')">
+      <div class="meal">
         <div class="meal-header">
           <span class="meal-title">Lunch ⌄</span>
           <div class="meal-summary" id="lunch-summary"></div>
@@ -90,7 +92,7 @@
         </div>
       </div>
 
-      <div class="meal" onclick="toggleList('dinner')">
+      <div class="meal">
         <div class="meal-header">
           <span class="meal-title">Dinner ⌄</span>
           <div class="meal-summary" id="dinner-summary"></div>
@@ -100,7 +102,7 @@
         </div>
       </div>
 
-      <div class="meal" onclick="toggleList('snacks')">
+      <div class="meal">
         <div class="meal-header">
           <span class="meal-title">Snacks ⌄</span>
           <div class="meal-summary" id="snacks-summary"></div>
@@ -129,13 +131,15 @@
           <option value="breakfast">Breakfast</option>
           <option value="lunch">Lunch</option>
           <option value="dinner">Dinner</option>
+          <option value="snack">Snacks</option>
         </select>
       </div>
 
-      <button class="clear-btn">Clear All</button>
+      <button class="clear-btn" href="delete_meal_log.php?all=true" onclick="return confirm('Delete all logs for today?')">Clear All</button>
     </div>
   </div>
-  <script src="../../javascript/calorietracker.js"></script>
+  <script src="../../javascript/calorie_tracker.js"></script>
+  <script src="../../javascript/sidebar.js"></script>
 </body>
 
 </html>
