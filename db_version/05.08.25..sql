@@ -1,0 +1,317 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Aug 05, 2025 at 02:14 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `gofit_database`
+--
+CREATE DATABASE IF NOT EXISTS `gofit_database` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `gofit_database`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `diet_plans`
+--
+
+CREATE TABLE `diet_plans` (
+  `plan_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `diet_plans`
+--
+
+INSERT INTO `diet_plans` (`plan_id`, `name`, `description`) VALUES
+(1, 'Keto Diet', 'A low-carbohydrate, High-fat diet plan for the body to shift its fuel source from carbohydrates to fats.'),
+(2, 'Test plan', 'some description entered here'),
+(3, 'keto diet', 'smeth smeoimsdfsfa');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `diet_plan_days`
+--
+
+CREATE TABLE `diet_plan_days` (
+  `day_id` int(11) NOT NULL,
+  `plan_id` int(11) NOT NULL,
+  `day_number` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `diet_plan_meals`
+--
+
+CREATE TABLE `diet_plan_meals` (
+  `meal_id` int(11) NOT NULL,
+  `plan_id` int(11) NOT NULL,
+  `day_id` int(11) NOT NULL,
+  `meal_type` varchar(50) NOT NULL,
+  `food_id` int(11) NOT NULL,
+  `amount` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exercises`
+--
+
+CREATE TABLE `exercises` (
+  `exercise_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `difficulty` varchar(50) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exercise_log`
+--
+
+CREATE TABLE `exercise_log` (
+  `log_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `exercise_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `sets` int(11) NOT NULL,
+  `reps` int(11) DEFAULT NULL,
+  `weight` int(11) DEFAULT NULL,
+  `distance` float(10,0) NOT NULL,
+  `duration` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `foods`
+--
+
+CREATE TABLE `foods` (
+  `food_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `brand` varchar(255) NOT NULL,
+  `calories` int(11) NOT NULL,
+  `portion_unit` varchar(50) NOT NULL,
+  `carbs` int(11) NOT NULL,
+  `protein` int(11) NOT NULL,
+  `fats` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `foods`
+--
+
+INSERT INTO `foods` (`food_id`, `name`, `brand`, `calories`, `portion_unit`, `carbs`, `protein`, `fats`) VALUES
+(1, 'White Bread', 'Gardenia', 70, '1 slice', 14, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meal_log`
+--
+
+CREATE TABLE `meal_log` (
+  `log_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `food_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `meal_type` varchar(50) NOT NULL,
+  `calories` int(11) NOT NULL,
+  `amount` float NOT NULL,
+  `carbs` int(11) NOT NULL,
+  `protein` int(11) NOT NULL,
+  `fats` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `meal_log`
+--
+
+INSERT INTO `meal_log` (`log_id`, `user_id`, `food_id`, `date`, `meal_type`, `calories`, `amount`, `carbs`, `protein`, `fats`) VALUES
+(1, 1, 1, '2025-08-03', 'breakfast', 140, 2, 28, 6, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_data`
+--
+
+CREATE TABLE `user_data` (
+  `user_id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `age` date NOT NULL,
+  `gender` enum('Male','Female') DEFAULT NULL,
+  `weight` float(10,0) DEFAULT NULL,
+  `height` float(10,0) DEFAULT NULL,
+  `bmi` float(10,0) DEFAULT NULL,
+  `goal_weight` float(10,0) DEFAULT NULL,
+  `calorie_goal` int(11) NOT NULL,
+  `register_date` date NOT NULL,
+  `role` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_data`
+--
+
+INSERT INTO `user_data` (`user_id`, `username`, `password`, `email`, `age`, `gender`, `weight`, `height`, `bmi`, `goal_weight`, `calorie_goal`, `register_date`, `role`) VALUES
+(1, 'Ying', '111', 'ying.gmail.com', '2014-03-05', 'Male', 60, 164, 17, 60, 70, '2025-08-04', 'User');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_diet_plans`
+--
+
+CREATE TABLE `user_diet_plans` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `plan_id` int(11) NOT NULL,
+  `start_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `diet_plans`
+--
+ALTER TABLE `diet_plans`
+  ADD PRIMARY KEY (`plan_id`);
+
+--
+-- Indexes for table `diet_plan_days`
+--
+ALTER TABLE `diet_plan_days`
+  ADD PRIMARY KEY (`day_id`);
+
+--
+-- Indexes for table `diet_plan_meals`
+--
+ALTER TABLE `diet_plan_meals`
+  ADD PRIMARY KEY (`meal_id`);
+
+--
+-- Indexes for table `exercises`
+--
+ALTER TABLE `exercises`
+  ADD PRIMARY KEY (`exercise_id`);
+
+--
+-- Indexes for table `exercise_log`
+--
+ALTER TABLE `exercise_log`
+  ADD PRIMARY KEY (`log_id`);
+
+--
+-- Indexes for table `foods`
+--
+ALTER TABLE `foods`
+  ADD PRIMARY KEY (`food_id`);
+
+--
+-- Indexes for table `meal_log`
+--
+ALTER TABLE `meal_log`
+  ADD PRIMARY KEY (`log_id`);
+
+--
+-- Indexes for table `user_data`
+--
+ALTER TABLE `user_data`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `user_diet_plans`
+--
+ALTER TABLE `user_diet_plans`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `diet_plans`
+--
+ALTER TABLE `diet_plans`
+  MODIFY `plan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `diet_plan_days`
+--
+ALTER TABLE `diet_plan_days`
+  MODIFY `day_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `diet_plan_meals`
+--
+ALTER TABLE `diet_plan_meals`
+  MODIFY `meal_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `exercises`
+--
+ALTER TABLE `exercises`
+  MODIFY `exercise_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `exercise_log`
+--
+ALTER TABLE `exercise_log`
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `foods`
+--
+ALTER TABLE `foods`
+  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `meal_log`
+--
+ALTER TABLE `meal_log`
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `user_data`
+--
+ALTER TABLE `user_data`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `user_diet_plans`
+--
+ALTER TABLE `user_diet_plans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

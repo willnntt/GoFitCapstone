@@ -10,7 +10,7 @@
     <div class="wrapper">
         <!-- Sidebar -->
         <div class="sidebar">
-            <div class="menu-toggle" onclick="toggleSidebar()">
+            <div class="menu-toggle">
                 <img src="../../assets/icons/hamburger.png" alt="Menu" class="hamburger-icon">
             </div>
             

@@ -20,13 +20,18 @@ body {
 }
 
 .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 80px;
+    height: 100vh;
     background-color: #f4f1f9;
     padding-top: 100px;
     border-right: 1px solid #ccc;
     text-align: center;
     transition: width 0.3s ease;
-    overflow: hidden;
+    overflow-x: hidden;
+    z-index: 999;
 }
 
 .sidebar.collapsed {
@@ -99,15 +104,15 @@ body {
 }
 
 .menu-toggle {
-    text-align: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-
     position: absolute;
-    top: 35px;
+    top: 10px;
     left: 0;
-    width: 80px; 
-    z-index: 2;
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1000;
+    background-color: #f4f1f9;
+    padding: 10px 0;
 }
 
 .hamburger-icon {
@@ -117,6 +122,7 @@ body {
 
 .main-content {
     flex-grow: 1;
+    margin-left: 80px;
     padding: 20px;
     background-color: #fff;
 }
@@ -129,6 +135,25 @@ body {
   color: white;
   border: none;
   border-radius: 50%;
+}
+
+.date-pagination {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#datePickerBtn {
+  padding: 10px 20px;
+  background-color: #c8aaf5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#datePickerBtn:hover {
+  background-color: #a27ae3;
 }
 
 .donut-chart {
@@ -304,4 +329,26 @@ body {
 .log-btn:disabled {
     background-color: #aaa;
     cursor: not-allowed;
+}
+
+.food-log-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.food-log-item span,
+.food-log-item button {
+    font-size: 14px;
+}
+
+.delete-btn {
+    color: red;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 2px 6px;
+    font-weight: bold;
 }
