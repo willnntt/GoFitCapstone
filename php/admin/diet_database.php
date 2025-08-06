@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Database</title>
-    <link rel="stylesheet" href="../../css/admin_database.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diet Database</title>
+    <link rel="stylesheet" href="../../css/dietdatabase.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="wrapper">
         <!-- Sidebar -->
@@ -50,42 +53,40 @@
             </ul>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content">
             <div class="header">
                 <h1>GoFit Database Management</h1>
             </div>
 
             <div class="sub-header">
-                <h2>Food Database</h2>
-                <button class="back-btn">Back</button>
+                <h2 class="plan-name">
+                    Choose a Diet Plan
+                </h2>
             </div>
 
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Food ID</th>
-                            <th>Name</th>
-                            <th>Brand</th>
-                            <th>Calories (kcal)</th>
-                            <th>Carbs (g)</th>
-                            <th>Protein (g)</th>
-                            <th>Fats (g)</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php include 'admin_load_food.php'; ?>
-                    </tbody>
-                </table>
+            <div class="description">
+                <p>Here you can manage all diet plans. Select a diet plan to modify it or create a new diet plan.</p>
             </div>
 
-            <div class="add-button-container">
-                <button class="add-btn">Add</button>
+            <div class="button">
+                <button class="create-btn">Create New Diet Plan</button>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" placeholder="Search Diet Plan" class="search-input">
+                <button class="search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+
+            <div class="photo-grid">
+
             </div>
         </div>
     </div>
-    <script src="../../javascript/navigation_bar.js"></script>
+
+    <script src="../../javascript/sidebar.js"></script>
+    <script src="../../javascript/admin_diet_plan.js"></script>
 </body>
+
 </html>

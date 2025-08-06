@@ -118,14 +118,16 @@
         <h3>Select Food</h3>
 
         <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Hinted search text">
-          <button>🔍</button>
+          <input type="text" id="searchInput" placeholder="Search Food">
+          <button>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         </div>
 
         <div class="food-scroll-list" id="foodScrollList">
         </div>
 
-        <br />
+        <br>
         <label>Choose Meal:</label>
         <select id="mealSelect">
           <option value="breakfast">Breakfast</option>
