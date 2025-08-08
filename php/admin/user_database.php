@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Database</title>
+    <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/admin_database.css">
 </head>
 <body>
@@ -12,6 +13,10 @@
         <div class="sidebar">
             <div class="menu-toggle">
                 <img src="../../assets/icons/hamburger.png" alt="Menu" class="hamburger-icon">
+            </div>
+
+            <div class="sidebar-toggle-arrow" style="display: none;">
+                <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" />
             </div>
             
             <ul>
@@ -69,11 +74,12 @@
                             <th>Username</th>
                             <th>Email</th>
                             <th>Gender</th>
-                            <th>Age</th>
+                            <th>Birthday</th>
                             <th>Height (cm)</th>
                             <th>Weight (kg)</th>
                             <th>BMI</th>
-                            <th>Role</th>
+                            <th>Goal Weight (kg)</th>
+                            <th>Calorie Goal</th>
                             <th>Register Date</th>
                             <th>Actions</th>
                         </tr>
@@ -85,6 +91,6 @@
             </div>
         </div>
     </div>
-    <script src="../../javascript/navigation_bar.js"></script>
+    <script src="../../javascript/sidebar.js"></script>
 </body>
 </html>

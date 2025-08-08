@@ -1,67 +1,87 @@
 <?php
+    header('Content-Type: application/json');
+    error_reporting(0);
+
     include '../conn.php';
 
-    $planId = intval($_GET['plan_id'] ?? 0);
-    if ($planId <= 0) {
-        echo json_encode(['success' => false, 'message' => 'Invalid plan ID']);
-        exit;
+    $plan_id = intval($_GET['plan_id']);
+    $day_number = isset($_GET['day_number']) ? intval($_GET['day_number']) : 1;
+
+    // Get name + description from diet_plans
+    $descSql = "SELECT name, description, image FROM diet_plans WHERE plan_id = $plan_id";
+    $descResult = mysqli_query($conn, $descSql);
+
+    $planName = "";
+    $description = "";
+    $image = "";
+
+    if ($descResult && mysqli_num_rows($descResult) > 0) {
+        $row = mysqli_fetch_assoc($descResult);
+        $planName = $row['name'];
+        $description = $row['description'];
+
+        // Clean image path
+        $imagePath = $row['image'];
+        $imagePath = preg_replace('#^(\.\./)+#', '/', $imagePath); // remove ../../ and replace with /
+
+        $image = $imagePath;
     }
 
-    // Get Day 1 ID
-    $daySql = "SELECT day_id FROM diet_plan_days WHERE plan_id = $planId AND day_number = 1 LIMIT 1";
-    $dayResult = mysqli_query($conn, $daySql);
+    // Get meals for the correct day
+    $sql = "SELECT 
+                m.meal_id,
+                f.name AS food_name,
+                f.portion_unit,
+                f.calories,
+                f.carbs,
+                f.protein,
+                f.fats,
+                m.meal_type,
+                m.amount
+            FROM diet_plan_days d
+            JOIN diet_plan_meals m ON d.day_id = m.day_id
+            JOIN foods f ON m.food_id = f.food_id
+            WHERE d.plan_id = $plan_id AND d.day_number = $day_number";
 
-    if (!$dayResult) {
-        echo json_encode(['success' => false, 'message' => 'Error querying day: ' . mysqli_error($conn)]);
-        exit;
-    }
+    $result = mysqli_query($conn, $sql);
 
-    $dayRow = mysqli_fetch_assoc($dayResult);
+    $meals = [
+        'breakfast' => [],
+        'lunch' => [],
+        'dinner' => [],
+        'snacks' => []
+    ];
 
-    // Fallback if Day 1 does not exist, create days 1 to 7
-    if (!$dayRow) {
-        $values = [];
-        for ($i = 1; $i <= 7; $i++) {
-            $values[] = "($planId, $i)";
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $mealType = strtolower($row['meal_type']);
+            $portionUnit = $row['portion_unit'] ?: '1 Serving';
+            $amount = intval($row['amount']);
+            $meals[$mealType][] = [
+                'id' => $row['meal_id'],
+                'food' => $row['food_name'],
+                'portion' => $amount,
+                'serving' => $portionUnit,
+                'calories' => $row['calories'] * $amount,
+                'carbs' => $row['carbs'] * $amount,
+                'protein' => $row['protein'] * $amount,
+                'fats' => $row['fats'] * $amount
+            ];
         }
-        $insertSql = "INSERT INTO diet_plan_days (plan_id, day_number) VALUES " . implode(',', $values);
 
-        if (!mysqli_query($conn, $insertSql)) {
-            echo json_encode(['success' => false, 'message' => 'Failed to insert 7 days: ' . mysqli_error($conn)]);
-            exit;
-        }
-
-        // Try fetching again after insert
-        $dayResult = mysqli_query($conn, $daySql);
-        if (!$dayResult || !($dayRow = mysqli_fetch_assoc($dayResult))) {
-            echo json_encode(['success' => false, 'message' => 'Failed to fetch Day 1 after creation.']);
-            exit;
-        }
+        echo json_encode([
+            'success' => true,
+            'name' => $planName,
+            'description' => $description,
+            'image' => $image,
+            'data' => $meals
+        ]);
+    } else {
+        echo json_encode([
+            'success' => false,
+            'message' => mysqli_error($conn)
+        ]);
     }
 
-    $dayId = $dayRow['day_id'];
-
-    // Fetch meals for Day 1
-    $mealSql = "SELECT * FROM diet_plan_meals WHERE day_id = $dayId ORDER BY meal_type";
-    $mealResult = mysqli_query($conn, $mealSql);
-
-    $meals = [];
-
-    while ($row = mysqli_fetch_assoc($mealResult)) {
-        $type = strtolower($row['meal_type']); // breakfast, lunch, etc.
-        if (!isset($meals[$type])) $meals[$type] = [];
-
-        $meals[$type][] = [
-            'food' => $row['food_name'],
-            'portion' => $row['portion_size'],
-            'serving' => $row['serving_size'],
-            'calories' => $row['calories'],
-            'carbs' => $row['carbs'],
-            'protein' => $row['protein'],
-            'fats' => $row['fats']
-        ];
-    }
-
-    echo json_encode(['success' => true, 'data' => $meals]);
     mysqli_close($conn);
 ?>

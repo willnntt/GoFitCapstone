@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diet Database</title>
+    <link rel="stylesheet" href="../../css/sidebar.css" />
     <link rel="stylesheet" href="../../css/dietdatabase.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -17,8 +17,12 @@
                 <img src="../../assets/icons/hamburger.png" alt="Menu" class="hamburger-icon">
             </div>
             
+            <div class="sidebar-toggle-arrow" style="display: none;">
+                <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" />
+            </div>
+
             <ul>
-                <li class="active">
+                <li>
                     <a href="user_database.php">
                         <div class="nav-item">
                             <img src="../../assets/icons/user.png" alt="User Icon" class="icon">
@@ -34,7 +38,7 @@
                         </div>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="diet_database.php">
                         <div class="nav-item">
                             <img src="../../assets/icons/diet.png" alt="Diet Icon" class="icon">
@@ -69,14 +73,9 @@
             </div>
 
             <div class="button">
-                <button class="create-btn">Create New Diet Plan</button>
-            </div>
-
-            <div class="search-bar">
-                <input type="text" placeholder="Search Diet Plan" class="search-input">
-                <button class="search-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+                <a href="admin_diet_record.php">
+                    <button class="create-btn">Create New Diet Plan</button>
+                </a>
             </div>
 
             <div class="photo-grid">
