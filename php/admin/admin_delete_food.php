@@ -9,7 +9,7 @@
     //Delete associated food items from diet plans
     mysqli_query($conn, "DELETE FROM diet_plan_meals WHERE food_id = '$food_id'");
     
-    header("Location: admin_food.php");
+    header("Location: food_database.php");
 
     mysqli_close($conn);
 ?>

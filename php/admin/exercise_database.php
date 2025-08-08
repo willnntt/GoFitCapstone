@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exercise Database</title>
+    <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/admin_database.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="wrapper">
@@ -13,9 +15,13 @@
             <div class="menu-toggle">
                 <img src="../../assets/icons/hamburger.png" alt="Menu" class="hamburger-icon">
             </div>
-            
+
+            <div class="sidebar-toggle-arrow" style="display: none;">
+                <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" />
+            </div>            
+
             <ul>
-                <li class="active">
+                <li>
                     <a href="user_database.php">
                         <div class="nav-item">
                             <img src="../../assets/icons/user.png" alt="User Icon" class="icon">
@@ -23,7 +29,7 @@
                         </div>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="exercise_database.php">
                         <div class="nav-item">
                             <img src="../../assets/icons/exercise.png" alt="Exercise Icon" class="icon">
@@ -58,11 +64,10 @@
 
             <div class="sub-header">
                 <h2>Exercise Database</h2>
-                <button class="back-btn">Back</button>
             </div>
 
             <div class="table-container">
-                <table>
+                <table id="exerciseTable">
                     <thead>
                         <tr>
                             <th>Exercise ID</th>
@@ -74,7 +79,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php include 'admin_load_exercises.php'; ?>
+                        
                     </tbody>
                 </table>
             </div>
@@ -84,6 +89,7 @@
             </div>
         </div>
     </div>
-    <script src="../../javascript/navigation_bar.js"></script>
+    <script src="../../javascript/sidebar.js"></script>
+    <script src="../../javascript/admin_exercise_records.js"></script>
 </body>
 </html>

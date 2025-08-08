@@ -19,7 +19,7 @@
         WHERE food_id = $food_id";
 
     if (mysqli_query($conn, $query)) {
-        header("Location: admin_foods.php?update=success");
+        header("Location: food_database.php?update=success");
     } else {
         echo "Update failed: " . mysqli_error($conn);
     }

@@ -1,11 +1,18 @@
-document.querySelector('.menu-toggle').addEventListener('click', () => {
-    const sidebar = document.querySelector('.sidebar');
-    const mainContent = document.querySelector('.main-content');
+const menuToggle = document.querySelector('.menu-toggle');
+const sidebar = document.querySelector('.sidebar');
+const mainContent = document.querySelector('.main-content');
+const arrowToggle = document.querySelector('.sidebar-toggle-arrow');
 
+menuToggle.addEventListener('click', () => {
     sidebar.classList.toggle('collapsed');
-    if (sidebar.classList.contains('collapsed')) {
-        mainContent.style.marginLeft = '0';
-    } else {
-        mainContent.style.marginLeft = '80px';
-    }
+    const isCollapsed = sidebar.classList.contains('collapsed');
+
+    mainContent.style.marginLeft = isCollapsed ? '0' : '80px';
+    arrowToggle.style.display = isCollapsed ? 'block' : 'none';
+});
+
+arrowToggle.addEventListener('click', () => {
+    sidebar.classList.remove('collapsed');
+    mainContent.style.marginLeft = '80px';
+    arrowToggle.style.display = 'none';
 });

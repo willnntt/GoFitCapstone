@@ -15,15 +15,16 @@
         echo "<td>{$row['username']}</td>";
         echo "<td>{$row['email']}</td>";
         echo "<td>{$row['gender']}</td>";
-        echo "<td>{$row['age']}</td>";
+        echo "<td>{$row['birthday']}</td>";
         echo "<td>{$row['weight']}</td>";
         echo "<td>{$row['height']}</td>";
         echo "<td>{$row['bmi']}</td>";
-        echo "<td>{$row['role']}</td>";
+        echo "<td>{$row['goal_weight']}</td>";
+        echo "<td>{$row['calorie_goal']}</td>";
         echo "<td>{$row['register_date']}</td>";
         echo "<td>
-            <a href='edit_user.php?id={$row['user_id']}'>Edit</a> |
-            <a href='delete_user.php?id={$row['user_id']}' onclick='return confirm(\"Delete this user?\")'>Delete</a>
+            <a href='admin_edit_user.php?id={$row['user_id']}'>Edit</a> |
+            <a href='admin_delete_user.php?id={$row['user_id']}' onclick='return confirm(\"Delete this user?\")'>Delete</a>
         </td>";
         echo "</tr>";
     }

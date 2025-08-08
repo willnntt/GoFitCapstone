@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const maxCalories = 2000;
 
     function fetchFoodData(callback) {
-        fetch('user_load_food.php')
+        fetch('load_food.php')
             .then(response => response.json())
             .then(data => {
                 foodData = data;

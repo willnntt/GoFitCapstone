@@ -15,7 +15,7 @@
         WHERE exercise_id = $exercise_id";
 
     if (mysqli_query($conn, $query)) {
-        header("Location: admin_exercises.php?update=success");
+        header("Location: exercise_database.php?update=success");
     } else {
         echo "Update failed: " . mysqli_error($conn);
     }
