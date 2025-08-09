@@ -6,6 +6,7 @@
     <title>User Database</title>
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/admin_database.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="wrapper">
@@ -67,7 +68,7 @@
             </div>
 
             <div class="table-container">
-                <table>
+                <table class="user-table">
                     <thead>
                         <tr>
                             <th>User ID</th>
@@ -85,12 +86,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php include 'admin_load_users.php'; ?>
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     <script src="../../javascript/sidebar.js"></script>
+    <script src="../../javascript/admin_user_records.js"></script>
 </body>
 </html>

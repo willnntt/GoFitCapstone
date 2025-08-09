@@ -31,6 +31,7 @@
     $sql = "SELECT 
                 m.meal_id,
                 f.name AS food_name,
+                f.brand AS brand,
                 f.portion_unit,
                 f.calories,
                 f.carbs,
@@ -60,6 +61,7 @@
             $meals[$mealType][] = [
                 'id' => $row['meal_id'],
                 'food' => $row['food_name'],
+                'brand' => $row['brand'] ?? 'Unknown',
                 'portion' => $amount,
                 'serving' => $portionUnit,
                 'calories' => $row['calories'] * $amount,

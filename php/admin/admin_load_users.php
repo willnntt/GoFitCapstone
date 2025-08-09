@@ -1,31 +1,26 @@
 <?php
     include '../conn.php';
 
+    header('Content-Type: application/json');
+
     $query = "SELECT * FROM user_data";
     $result = mysqli_query($conn, $query);
 
     if (!$result) {
-        echo "<tr><td colspan='12'>Failed to fetch data.</td></tr>";
+        echo json_encode([
+            'success' => false,
+            'message' => 'Failed to fetch users: ' . mysqli_error($conn)
+        ]);
         exit;
     }
 
+    $users = [];
     while ($row = mysqli_fetch_assoc($result)) {
-        echo "<tr>";
-        echo "<td>{$row['user_id']}</td>";
-        echo "<td>{$row['username']}</td>";
-        echo "<td>{$row['email']}</td>";
-        echo "<td>{$row['gender']}</td>";
-        echo "<td>{$row['birthday']}</td>";
-        echo "<td>{$row['weight']}</td>";
-        echo "<td>{$row['height']}</td>";
-        echo "<td>{$row['bmi']}</td>";
-        echo "<td>{$row['goal_weight']}</td>";
-        echo "<td>{$row['calorie_goal']}</td>";
-        echo "<td>{$row['register_date']}</td>";
-        echo "<td>
-            <a href='admin_edit_user.php?id={$row['user_id']}'>Edit</a> |
-            <a href='admin_delete_user.php?id={$row['user_id']}' onclick='return confirm(\"Delete this user?\")'>Delete</a>
-        </td>";
-        echo "</tr>";
+        $users[] = $row;
     }
+
+    echo json_encode([
+        'success' => true,
+        'data' => $users
+    ]);
 ?>

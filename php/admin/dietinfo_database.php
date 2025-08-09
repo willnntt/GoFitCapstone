@@ -106,6 +106,7 @@
           <thead>
             <tr>
               <th>Food</th>
+              <th>Brand</th>
               <th>Portion Size</th>
               <th>Serving Size</th>
               <th>Calories (kcal)</th>
@@ -135,6 +136,7 @@
           <thead>
             <tr>
               <th>Food</th>
+              <th>Brand</th>
               <th>Portion Size</th>
               <th>Serving Size</th>
               <th>Calories (kcal)</th>
@@ -164,6 +166,7 @@
           <thead>
             <tr>
               <th>Food</th>
+              <th>Brand</th>
               <th>Portion Size</th>
               <th>Serving Size</th>
               <th>Calories (kcal)</th>
@@ -193,6 +196,7 @@
           <thead>
             <tr>
               <th>Food</th>
+              <th>Brand</th>
               <th>Portion Size</th>
               <th>Serving Size</th>
               <th>Calories (kcal)</th>
