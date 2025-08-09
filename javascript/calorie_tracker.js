@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    function openMenu() {
+    function openMenu(mealTime) {
         document.querySelector('.overlay').style.display = 'block';
         document.getElementById('foodMenu').style.display = 'block';
-        fetchFoodData(() => displayFoodList(foodData));
+        fetchFoodData(() => displayFoodList(foodData, mealTime));
     }
 
     function closeMenu() {
@@ -27,12 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('foodMenu').style.display = 'none';
     }
 
-    function toggleList(meal) {
-        const list = document.getElementById(`${meal}-list`);
-        list.style.display = list.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function displayFoodList(foods) {
+    function displayFoodList(foods, mealTime) {
         const listContainer = document.getElementById('foodScrollList');
         listContainer.innerHTML = '';
 
@@ -73,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 addBtn.disabled = !(parseInt(portionInput.value) > 0);
             });
 
-            // Add food to log
             addBtn.addEventListener('click', () => {
                 const portions = parseInt(portionInput.value);
                 if (isNaN(portions) || portions <= 0) return;
@@ -83,7 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     food.calories,
                     food.food_id,
                     portions,
-                    portionLabel
+                    portionLabel,
+                    mealTime
                 );
             });
 
@@ -99,11 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
         displayFoodList(filtered);
     }
 
-    function selectFoodItem(foodName, caloriesPerPortion, foodId, portions, portionUnit) {
-        const meal = document.getElementById('mealSelect').value;
-        const ul = document.querySelector(`#${meal}-list ul`);
-        const totalCal = caloriesPerPortion * portions;
+    function selectFoodItem(foodName, caloriesPerPortion, foodId, portions, portionUnit, meal) {
+        const ul = document.querySelector(`.meal-section[data-meal="${meal}"] .meal-food-list`);
+        if (!ul) {
+            console.error(`No meal section found for ${meal}`);
+            return;
+        }
 
+        const totalCal = caloriesPerPortion * portions;
         const li = document.createElement('li');
         li.textContent = `${foodName} - ${portions} × ${portionUnit} = ${totalCal} kcal`;
         ul.appendChild(li);
@@ -114,9 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fetch('log_meal.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 food_id: foodId,
                 meal_type: meal,
@@ -147,48 +143,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                const mealTypes = ['breakfast', 'lunch', 'dinner', 'snacks'];
-                totalCalories = 0; // reset before recalculating
+                const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'];
+                totalCalories = 0; // reset total calories
 
                 mealTypes.forEach(meal => {
-                    const list = document.querySelector(`#${meal}-list ul`);
-                    const summary = document.getElementById(`${meal}-summary`);
+                    const mealSection = document.querySelector(`.meal-section[data-meal="${meal}"] .meal-food-list`);
 
-                    // clear existing list
-                    list.innerHTML = '';
-                    let mealCal = 0, carbs = 0, protein = 0, fats = 0;
+                    // clear existing logs
+                    mealSection.innerHTML = '';
 
                     (data.data[meal] || []).forEach(item => {
                         const portionCalories = item.calories * item.amount;
-                        mealCal += portionCalories;
-                        carbs += item.carbs * item.amount;
-                        protein += item.protein * item.amount;
-                        fats += item.fats * item.amount;
+                        totalCalories += portionCalories;
 
                         const li = document.createElement('li');
-                        console.log('ITEM:', item);
-
-                        li.innerHTML = `
-                            ${item.name} (${item.brand}): ${item.amount} × ${item.unit} = ${portionCalories} kcal
-                            <span class="material-symbols-outlined delete-btn" data-id="${item.id}">delete</span>
-                        `;
-
                         li.classList.add('food-log-item');
+                        li.innerHTML = `
+                        ${item.name} ${item.brand ? `(${item.brand})` : ''}: 
+                        ${item.amount} × ${item.unit} = ${portionCalories} kcal
+                        <i class="fa-solid fa-trash delete-btn" style="cursor:pointer; color:red;" data-id="${item.id}"></i>
+                    `;
 
-                        // attach delete listener
+                        // Delete button listener
                         li.querySelector('.delete-btn').addEventListener('click', function (event) {
                             event.preventDefault();
 
                             if (confirm('Delete this log?')) {
                                 const logId = this.dataset.id;
                                 const url = `delete_meal_log.php?log_id=${logId}`;
-                                console.log('Deleting log with ID:', logId);
-                                console.log('Fetch URL:', url);
 
                                 fetch(url, { method: 'GET' })
                                     .then(response => {
                                         if (response.ok) {
-                                            location.reload();
+                                            loadMealLogs();
                                         } else {
                                             alert('Failed to delete log.');
                                         }
@@ -200,21 +187,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         });
 
-                        list.appendChild(li);
+                        mealSection.appendChild(li);
                     });
-
-                    // update total calories
-                    totalCalories += mealCal;
-
-                    // update summary
-                    summary.innerHTML = `
-                    <small>
-                        ${mealCal} kcal | 
-                        C: ${carbs.toFixed(1)}g 
-                        P: ${protein.toFixed(1)}g 
-                        F: ${fats.toFixed(1)}g
-                    </small>
-                `;
                 });
 
                 updateChart();
@@ -225,15 +199,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateChart() {
-        const consumed = Math.min(totalCalories, maxCalories);
-        const remaining = Math.max(0, maxCalories - consumed);
-        const percent = remaining / maxCalories;
-        const angle = percent * 360;
+        const consumed = totalCalories; // allow values above max
+        const remaining = maxCalories - consumed; // can be negative
 
-        document.getElementById('remaining').innerHTML = `Remaining<br>${remaining} kcal`;
+        document.getElementById('remaining').innerHTML = 
+            `Remaining<br>${remaining} kcal`;
 
         const chart = document.getElementById('donut');
-        chart.style.background = `conic-gradient(#c8aaf5 0deg ${angle}deg, #eee ${angle}deg 360deg)`;
+
+        if (remaining >= 0) {
+            // Normal case
+            const percent = remaining / maxCalories;
+            const angle = percent * 360;
+            chart.style.background = `conic-gradient(#c8aaf5 0deg ${angle}deg, #eee ${angle}deg 360deg)`;
+        } else {
+            // Overeaten case
+            chart.style.background = `conic-gradient(#ff5e5e 0deg 360deg, #eee 0deg 0deg)`;
+        }
     }
 
     function clearAllMeals() {
@@ -246,14 +228,43 @@ document.addEventListener('DOMContentLoaded', () => {
         updateChart();
     }
 
-    document.querySelector('.add-btn')?.addEventListener('click', openMenu);
+    // Toggle dropdown
+    document.querySelectorAll(".meal-header").forEach(header => {
+        header.addEventListener("click", (e) => {
+            // Prevent triggering when clicking the + button
+            if (e.target.classList.contains("openFoodMenu")) return;
+
+            const section = header.parentElement;
+            const foodList = section.querySelector(".meal-food-list");
+            const arrow = section.querySelector(".fa-chevron-up, .fa-chevron-down");
+
+            const isOpen = foodList.style.display === "block";
+
+            // Toggle visibility
+            foodList.style.display = isOpen ? "none" : "block";
+
+            // Swap chevron classes
+            if (isOpen) {
+                arrow.classList.remove("fa-chevron-up");
+                arrow.classList.add("fa-chevron-down");
+            } else {
+                arrow.classList.remove("fa-chevron-down");
+                arrow.classList.add("fa-chevron-up");
+            }
+        });
+    });
+
+    document.querySelectorAll(".openFoodMenu").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const meal = btn.dataset.meal;
+            console.log(`Add food for ${meal}`);
+            openMenu(meal);
+        });
+    });
+
     document.querySelector('.overlay')?.addEventListener('click', closeMenu);
     document.querySelector('.clear-btn')?.addEventListener('click', clearAllMeals);
     document.querySelector('.search-bar button')?.addEventListener('click', searchFood);
-
-    document.querySelector('.meal:nth-of-type(3)')?.addEventListener('click', () => toggleList('breakfast'));
-    document.querySelector('.meal:nth-of-type(4)')?.addEventListener('click', () => toggleList('lunch'));
-    document.querySelector('.meal:nth-of-type(5)')?.addEventListener('click', () => toggleList('dinner'));
 
     updateChart();
     loadMealLogs();

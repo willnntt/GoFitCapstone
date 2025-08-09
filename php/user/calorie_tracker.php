@@ -12,7 +12,7 @@
   <title>Calorie Tracker</title>
   <link rel="stylesheet" href="../../css/sidebar.css" />
   <link rel="stylesheet" href="../../css/calorietracker.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 </head>
 
@@ -25,7 +25,7 @@
       </div>
 
       <ul>
-        <li class="active">
+        <li>
           <a href="user_database.php">
             <div class="nav-item">
               <img src="../../assets/icons/user.png" alt="User Icon" class="icon">
@@ -41,8 +41,8 @@
             </div>
           </a>
         </li>
-        <li>
-          <a href="diet_database.php">
+        <li class="active">
+          <a href="calorie_tracker.php">
             <div class="nav-item">
               <img src="../../assets/icons/diet.png" alt="Diet Icon" class="icon">
               <span>Calorie Tracker</span>
@@ -63,8 +63,7 @@
     <!-- Main Content -->
     <div class="main-content">
       <div class="header">
-        <h2 style="margin: 0;">Calorie Tracker</h2>
-        <button class="add-btn">＋</button>
+        <h2>Calorie Tracker</h2>
       </div>
 
       <div class="donut-chart" id="donut">
@@ -73,44 +72,56 @@
 
       <h2>Calories Consumed</h2>
 
-      <div class="meal">
+      <div class="meal-section" data-meal="breakfast">
         <div class="meal-header">
-          <span class="meal-title">Breakfast ⌄</span>
-          <div class="meal-summary" id="breakfast-summary"></div>
+          <span class="meal-name">Breakfast</span>
+          <div class="meal-actions">
+            <i class="fa-solid fa-plus openFoodMenu" data-meal="breakfast"></i>
+            <i id="toggle-icon-breakfast" class="fa-solid fa-chevron-up"></i>
+          </div>
         </div>
-        <div class="food-list" id="breakfast-list">
-          <ul></ul>
-        </div>
+        <ul class="meal-food-list">
+          <!-- Food items will be inserted here -->
+        </ul>
       </div>
 
-      <div class="meal">
+      <div class="meal-section" data-meal="lunch">
         <div class="meal-header">
-          <span class="meal-title">Lunch ⌄</span>
-          <div class="meal-summary" id="lunch-summary"></div>
+          <span class="meal-name">Lunch</span>
+          <div class="meal-actions">
+            <i class="fa-solid fa-plus openFoodMenu" data-meal="lunch"></i>
+            <i id="toggle-icon-lunch" class="fa-solid fa-chevron-up"></i>
+          </div>
         </div>
-        <div class="food-list" id="lunch-list">
-          <ul></ul>
-        </div>
+        <ul class="meal-food-list">
+          <!-- Food items will be inserted here -->
+        </ul>
       </div>
 
-      <div class="meal">
+      <div class="meal-section" data-meal="dinner">
         <div class="meal-header">
-          <span class="meal-title">Dinner ⌄</span>
-          <div class="meal-summary" id="dinner-summary"></div>
+          <span class="meal-name">Dinner</span>
+          <div class="meal-actions">
+            <i class="fa-solid fa-plus openFoodMenu" data-meal="dinner"></i>
+            <i id="toggle-icon-dinner" class="fa-solid fa-chevron-up"></i>
+          </div>
         </div>
-        <div class="food-list" id="dinner-list">
-          <ul></ul>
-        </div>
+        <ul class="meal-food-list">
+          <!-- Food items will be inserted here -->
+        </ul>
       </div>
 
-      <div class="meal">
+      <div class="meal-section" data-meal="snack">
         <div class="meal-header">
-          <span class="meal-title">Snacks ⌄</span>
-          <div class="meal-summary" id="snacks-summary"></div>
+          <span class="meal-name">Snack</span>
+          <div class="meal-actions">
+            <i class="fa-solid fa-plus openFoodMenu" data-meal="snack"></i>
+            <i id="toggle-icon-snack" class="fa-solid fa-chevron-up"></i>
+          </div>
         </div>
-        <div class="food-list" id="snacks-list">
-          <ul></ul>
-        </div>
+        <ul class="meal-food-list">
+          <!-- Food items will be inserted here -->
+        </ul>
       </div>
 
       <div class="overlay"></div>
@@ -127,18 +138,10 @@
 
         <div class="food-scroll-list" id="foodScrollList">
         </div>
-
-        <br>
-        <label>Choose Meal:</label>
-        <select id="mealSelect">
-          <option value="breakfast">Breakfast</option>
-          <option value="lunch">Lunch</option>
-          <option value="dinner">Dinner</option>
-          <option value="snack">Snacks</option>
-        </select>
       </div>
 
-      <button class="clear-btn" href="delete_meal_log.php?all=true" onclick="return confirm('Delete all logs for today?')">Clear All</button>
+      <a class="clear-btn" href="delete_meal_log.php?all=true" onclick="return confirm('Delete all logs for today?')">Clear All</a>
+      
     </div>
   </div>
   <script src="../../javascript/calorie_tracker.js"></script>

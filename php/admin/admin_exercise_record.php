@@ -21,7 +21,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diet Tracker</title>
+  <title>Gofit Admin Database</title>
   <link rel="stylesheet" href="../../css/sidebar.css" />
   <link rel="stylesheet" href="../../css/admin_database.css" />
 </head>
@@ -81,7 +81,7 @@
       </div>
 
       <div class="sub-header">
-        <h2>Create New Exercise Record</h2>
+        <h2>Exercise Record</h2>
         
         <a href="exercise_database.php">
           <button class="back-btn">Back</button>

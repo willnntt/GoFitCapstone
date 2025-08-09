@@ -238,6 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         row.innerHTML = `
                         <td>${meal.food}</td>
+                        <td>${meal.brand || 'No Brand'}</td>
                         <td>${meal.portion}</td>
                         <td>${meal.serving}</td>
                         <td>${meal.calories}</td>
