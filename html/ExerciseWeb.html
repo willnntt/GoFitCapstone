@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoFit</title>
+    <link rel="stylesheet" href="exercise.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Dashboard</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active">
+                <span>Exercise Log</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span>Calorie Tracker</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span>Diet Plan</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="exercise-card">
+        <!-- Exercise Log Header -->
+        <div class="exercise-log-header" id="exerciseLogHeader" style="display: none;">
+            <h2>Today's Exercises</h2>
+            <div id="currentExercises"></div>
+        </div>
+
+        <h1 class="website-title">www.GoFit.com.my</h1>
+        <div class="day-header">
+            <button class="arrow-btn left-arrow" id="prevDay">←</button>
+            <h2 id="currentDay">Day 1</h2>
+            <button class="arrow-btn right-arrow" id="nextDay">→</button>
+        </div>
+        
+        <div class="exercise-display">
+            <div class="empty-state">
+                No exercises added yet
+                <div class="exercise-picture">
+                    <img src="exercise-picture.jpg" alt="Exercise illustration">
+                </div>
+            </div>
+        </div>
+        
+        <div class="timer-display" id="timerDisplay" style="display: none;">
+            <span id="timer">00:00:00</span>
+        </div>
+        
+        <p class="exercise-message">You haven't started an exercise session today!</p>
+        <div class="divider"></div>
+        <button class="session-btn" id="startSessionBtn">Start Session</button>
+    </div>
+
+    <!-- Exercise Selection Popup -->
+    <div id="overlay" onclick="closePopup()"></div>
+    <div id="popup">
+    <h3>Select Exercise</h3>
+    <div class="exercise-selection-table">
+        <div class="exercise-row header">
+            <div class="exercise-name">Exercise</div>
+            <div class="exercise-action">Add</div>
+        </div>
+        <div id="exerciseList" class="exercise-list"></div>
+    </div>
+</div>
+    </div>
+
+    <script src="exercise.js"></script>
+</body>
+
+</html>

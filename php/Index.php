@@ -1,7 +1,7 @@
 <?php
-
+    include 'conn.php';
+    session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | GoFit</title>
 
-    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="Login">
         <div class="Login-text">
-            Login 
+            Login
             <br>
             <br>
             Enter your email

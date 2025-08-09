@@ -1,0 +1,355 @@
+/* Base Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 30px;
+    padding-left: 280px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #2c3e50;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.sidebar-header {
+    padding: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.sidebar-nav {
+    padding: 15px 0;
+    flex-grow: 1;
+}
+
+.nav-item {
+    display: block;
+    padding: 15px 25px;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.nav-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left: 4px solid #26e1ee;
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Main Card Styles */
+.exercise-card {
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.website-title {
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 25px;
+    font-weight: normal;
+}
+
+/* Day Navigation */
+.day-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.day-header h2 {
+    color: #333;
+    font-size: 28px;
+    margin: 0;
+    min-width: 100px;
+    text-align: center;
+}
+
+.arrow-btn {
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    color: #000000;
+    padding: 8px 15px;
+    transition: all 0.2s;
+}
+
+.arrow-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Exercise Display */
+.exercise-display {
+    min-height: 250px;
+    margin: 25px 0;
+}
+
+.empty-state {
+    color: #999;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.exercise-picture {
+    width: 200px;
+    height: 200px;
+    background-color: #f5f5f5;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.exercise-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.exercise-message {
+    color: #666;
+    font-size: 20px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.divider {
+    height: 2px;
+    background-color: #e0e0e0;
+    margin: 30px 0;
+}
+
+/* Exercise Log Items */
+.exercise-log-header {
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.exercise-log-header h2 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.current-exercise {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.current-exercise:last-child {
+    border-bottom: none;
+}
+
+.current-exercise span {
+    margin-right: 15px;
+    font-weight: 500;
+}
+
+/* Buttons */
+.session-btn {
+    background-color: #26e1ee;
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    width: 100%;
+    max-width: 250px;
+    margin: 15px 0;
+}
+
+.session-btn:hover {
+    background-color: #0126f7;
+}
+
+/* Popup Styles */
+#popup {
+    position: fixed;
+    top: 50%;
+    left: calc(50% + 125px);
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    display: none;
+    width: 85%;
+    max-width: 400px;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+#popup h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 999;
+}
+
+/* Exercise List Styles */
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.exercise-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.exercise-option:hover {
+    background-color: #e9e9e9;
+}
+
+.add-exercise-btn {
+    background-color: #26e1ee;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-exercise-btn:hover {
+    background-color: #0126f7;
+    transform: scale(1.1);
+}
+
+/* Timer Display */
+.timer-display {
+    font-family: 'Courier New', monospace;
+    font-size: 28px;
+    color: #333;
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    display: inline-block;
+}
+/* Exercise Selection Table */
+.exercise-selection-table {
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.exercise-row {
+    display: flex;
+    padding: 12px 15px;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.exercise-row.header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.exercise-name {
+    flex: 1;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.exercise-action {
+    width: 60px;
+    text-align: center;
+}
+
+.exercise-option {
+    display: flex;
+    transition: background-color 0.2s;
+}
+
+.exercise-option:hover {
+    background-color: #f8f9fa;
+}
+
+.add-exercise-btn {
+    background-color: #26e1ee;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-exercise-btn:hover {
+    background-color: #0126f7;
+    transform: scale(1.1);
+}
