@@ -1,14 +1,22 @@
 <?php
     include '../conn.php';
 
-    $user_id = 1; // Example user
+    session_start();
+
+    $user_id = $_SESSION['user_id'];
     $field = $_POST['field'] ?? '';
     $value = $_POST['value'] ?? '';
 
-    $allowed = ['username','email','password','age','gender','height','weight','calorie_goal'];
+    $allowed = ['username','email','password','age','gender','height','weight','calorie_goal','activity_level','weight_change'];
+
     if (!in_array($field, $allowed)) {
         echo "Invalid field";
         exit();
+    }
+
+    // If updating password, hash it
+    if ($field === 'password') {
+        $value = password_hash($value, PASSWORD_DEFAULT);
     }
 
     $sql = "UPDATE user_data SET $field = ? WHERE user_id = ?";

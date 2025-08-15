@@ -1,190 +1,200 @@
 body {
   margin: 0;
-  background-color:beige;
+  background-color:rgb(255, 255, 255);
   display: flex;
 }
 
-/* sidebar */
-.sidebar {
-  width: 70px;
-  background-color: beige;
+.wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
   height: 100vh;
-}
-
-.sidebar-content {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-/* button */
-.icon-btn {
-  background-color: #eed9c4;
-  border-radius: 10px;
-  padding: 15px;
-  color: #444;
-  cursor: pointer;
-}
-
-.icon-btn:hover {
-  background-color: #cfb095;
-}
-
-/* label */
-.labels {
-  text-align: center;
-  color: #444;
-  font-size: 18px;
-}
-
-.labels .label {
-  margin: 25px 0;
-  cursor: pointer;
-}
-
-.labels i {
-  display: block;
-  font-size: 25px;
-  margin-bottom: 4px;
-  color: #5f5f5f;
+  width: 100%;
 }
 
 .main {
   flex: 1;
-  padding: 30px 40px;
+  padding: 20px;
+  margin-left: 80px;
+  margin-bottom: 20px;
+}
+
+.header {
+  background-color: #d9d9d9;
+  padding: 10px;
+  text-align: center;
 }
 
 /* user */
 .user-info {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
   gap: 10px;
-  font-size: 20px;
+  font-size: 3rem;
   color: #444;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
-.user-info i {
-  font-size: 50px;
-  color: #444;
-  cursor: pointer;
-}
-
-.user-info .user-text {
-
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-/* bar */
-.search-bar {
-  display: flex;
-  align-items: center;
-  background-color: #f0e8bb;
-  padding: 10px 20px;
-  border-radius: 30px;
-  margin-bottom: 30px;
-  margin-left:30px;
-  width: 100%;
-  max-width: 900px;
-}
-
-.search-bar input {
+.back-btn {
+  padding: 6px 16px;
+  background-color: #ccc;
   border: none;
-  outline: none;
-  background: none;
-  font-size: 20px;
-  flex: 1;
-  margin-left: 10px;
-}
-
-.search-bar i {
-  color: #444;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 /* progress */
 .progress-section {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .progress-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 25px;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-}
-
-/* photo */
-.progress-photos {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.progress-photos .photo {
-  width: 200px;
-  height: 120px;
-  background-color:black;
-  border-radius: 6px; 
-}
-
-.progress-photos .photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-
-/* exercise */
-.exercise-section {
-  margin-top: 20px;
-}
-
-.exercise-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 25px;
-  margin-bottom: 10px;
-  border-bottom: 2px solid black;
-  padding-bottom: 5px;
-}
-
-.exercise-title{
-  font-weight: bold;
-}
-
-.exercise-items {
-  display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
+  justify-content: space-between;
+  align-items: left;
+  font-size: 25px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
 }
 
-.exercise-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 18px;
-  color:black;
-  padding: 10px;
+hr {
+  width: 100%;
+  border: 0;
+  border-top: 4px solid #ccc;
+  margin: 5px 0;
+  margin-bottom: 10px;
 }
 
-/*view all */
-.view-all {
-  font-size: 20px;
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+.progress-entry {
   display: flex;
-  align-items: center;
-  gap: 5px;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.progress-item {
+    flex: 1;
+    background: #e5e5e5;
+    padding: 15px;
+    border-radius: 10px;
+    max-height: 300px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.donut-chart {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: conic-gradient(#c8aaf5 0deg, #eee 0deg);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Inner white "cutout" for donut hole */
+.donut-chart::before {
+    content: '';
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Remaining text inside the donut */
+.donut-chart span {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    line-height: 1.3;
+}
+
+.donut-normal {
+    background: conic-gradient(#c8aaf5 0deg var(--angle, 0deg), #eee var(--angle, 0deg) 360deg);
+}
+
+.donut-overeaten {
+    background: conic-gradient(#ff5e5e 0deg 360deg, #eee 0deg 0deg);
+}
+
+.latest-exercise, .current-diet {
+    display: flex;
+    flex-direction: column;
+}
+
+.latest-exercise p {
+    margin: 20px;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.diet-plan {
+    display: flex;
+    height: 100%;
+    margin-left: 20px;
+    align-items: center;
+    gap: 20px;
+}
+
+.diet-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.diet-name {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #555;
+}
+
+h3 {
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+h4 {
+    font-size: 30px;
+    margin: 10px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.health-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.health-title {
+    font-size: 25px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.health-stats {
+    list-style: none;
+    padding-left: 0;
+}
+
+.health-stats li {
+    margin: 5px 0;
+    font-size: 1.2rem;
 }
 
 @media (max-width:768px) {
@@ -262,9 +272,5 @@ body {
 
   .user-info i {
     font-size: 36px;
-  }
-
-  .exercise-header, .progress-header {
-    font-size: 20px;
   }
 }

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function fetchFoodData(callback) {
         console.log("Fetching food data...");
-        fetch('../user/load_food.php')
+        fetch('..load_food.php')
             .then(response => response.json())
             .then(data => {
                 console.log("Fetched food data:", data);
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadDietPlanMeals(planId) {
         console.log('Loading meals for plan:', planId, 'Day:', currentDay);
-        fetch(`admin_load_dietplan_meal.php?plan_id=${planId}&day_number=${currentDay}`)
+        fetch(`../load_dietplan_meal.php?plan_id=${planId}&day_number=${currentDay}`)
             .then(res => res.json())
             .then(data => {
                 if (!data.success) {

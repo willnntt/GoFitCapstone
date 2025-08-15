@@ -3,7 +3,7 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    include '../conn.php';
+    include 'conn.php';
 
     $sql = "SELECT * FROM diet_plans ORDER BY plan_id DESC";
     $result = mysqli_query($conn, $sql);

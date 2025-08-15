@@ -2,7 +2,7 @@
     header('Content-Type: application/json');
     error_reporting(0);
 
-    include '../conn.php';
+    include 'conn.php';
 
     $plan_id = intval($_GET['plan_id']);
     $day_number = isset($_GET['day_number']) ? intval($_GET['day_number']) : 1;

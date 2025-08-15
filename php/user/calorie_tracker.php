@@ -1,6 +1,18 @@
 <?php
-  ini_set('display_errors', 1);
-  error_reporting(E_ALL);
+  include '../conn.php';
+  session_start();
+
+  $user_id = $_SESSION['user_id'];
+
+      if (!isset($_SESSION['user_id'])) {
+        header('Location: ../../index.php');
+        exit;
+    }
+
+  $query = "SELECT calorie_goal FROM user_data WHERE user_id = '$user_id'";
+  $result = mysqli_query($conn, $query);
+  $row = mysqli_fetch_assoc($result);
+  $calorie_goal = (int)$row['calorie_goal'];
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +26,10 @@
   <link rel="stylesheet" href="../../css/calorietracker.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <script>
+    window.calorie_goal = <?php echo $calorie_goal; ?>;
+  </script>
+
 </head>
 
 <body>
@@ -23,37 +39,44 @@
       <div class="menu-toggle">
         <img src="../../assets/icons/hamburger.png" alt="Menu" class="hamburger-icon">
       </div>
-
       <ul>
         <li>
-          <a href="user_database.php">
+          <a href="dashboard.php">
             <div class="nav-item">
               <img src="../../assets/icons/user.png" alt="User Icon" class="icon">
               <span>Dashboard</span>
             </div>
           </a>
         </li>
+        <li class="active">
+          <a href="calorie_tracker.php">
+            <div class="nav-item">
+              <img src="../../assets/icons/food.png" alt="Food Icon" class="icon">
+              <span>Calorie Tracker</span>
+            </div>
+          </a>
+        </li>
         <li>
-          <a href="exercise_database.php">
+          <a href="exercise_log.php">
             <div class="nav-item">
               <img src="../../assets/icons/exercise.png" alt="Exercise Icon" class="icon">
               <span>Exercise Log</span>
             </div>
           </a>
         </li>
-        <li class="active">
-          <a href="calorie_tracker.php">
+        <li>
+          <a href="diet_plan.php">
             <div class="nav-item">
               <img src="../../assets/icons/diet.png" alt="Diet Icon" class="icon">
-              <span>Calorie Tracker</span>
+              <span>Diet Plan</span>
             </div>
           </a>
         </li>
         <li>
-          <a href="food_database.php">
+          <a href="setting.php">
             <div class="nav-item">
-              <img src="../../assets/icons/food.png" alt="Food Icon" class="icon">
-              <span>Diet Plans</span>
+              <img src="../../assets/icons/setting.png" alt="Setting Icon" class="icon">
+              <span>Settings</span>
             </div>
           </a>
         </li>
@@ -66,8 +89,14 @@
         <h2>Calorie Tracker</h2>
       </div>
 
+      <div class="sub-header">
+        <a href="../../index.php">
+          <button class="back-btn">Log out</button>
+        </a>    
+      </div>
+
       <div class="donut-chart" id="donut">
-        <span id="remaining">Remaining<br>2000 kcal</span>
+        <span id="remaining">Remaining<br> <?= $calorie_goal ?> </span>
       </div>
 
       <h2>Calories Consumed</h2>
@@ -140,8 +169,9 @@
         </div>
       </div>
 
-      <a class="clear-btn" href="delete_meal_log.php?all=true" onclick="return confirm('Delete all logs for today?')">Clear All</a>
-      
+      <a class="clear-btn" href="delete_meal_log.php?all=true"
+        onclick="return confirm('Delete all logs for today?')">Clear All</a>
+
     </div>
   </div>
   <script src="../../javascript/calorie_tracker.js"></script>
