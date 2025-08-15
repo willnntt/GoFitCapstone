@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <td>${user.username}</td>
                             <td>${user.email}</td>
                             <td>${user.gender}</td>
-                            <td>${user.birthday}</td>
+                            <td>${user.dob}</td>
                             <td>${user.height}</td>
                             <td>${user.weight}</td>
                             <td>${user.bmi}</td>

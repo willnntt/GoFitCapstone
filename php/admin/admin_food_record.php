@@ -1,6 +1,13 @@
 <?php
   include '../conn.php';
 
+  session_start();
+
+  if (!isset($_SESSION['user_id'])) {
+      header('Location: ../../index.php');
+      exit;
+  }  
+
   $food = [
       'food_id' => '',
       'name' => '',
@@ -102,7 +109,7 @@
 
       <div class="form-container">
         <div class="form-box">
-          <form action="admin_create_food.php" method="POST" id="foodForm">
+          <form action="admin_save_food.php" method="POST" id="foodForm">
             <input type="hidden" name="food_id" id="food_id" value="<?php echo htmlspecialchars($food['food_id']); ?>" />
 
             <div class="form-group">

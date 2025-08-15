@@ -1,19 +1,32 @@
 <?php
-include '../conn.php';
+  include '../conn.php';
 
-// Get user ID from query
-$user_id = $_GET['user_id'] ?? 0;
-$user = null;
+  session_start();
 
-if ($user_id) {
-    $stmt = mysqli_prepare($conn, "SELECT * FROM user_data WHERE user_id = ?");
-    mysqli_stmt_bind_param($stmt, "i", $user_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $user = mysqli_fetch_assoc($result);
-    mysqli_stmt_close($stmt);
-}
+  if (!isset($_SESSION['user_id'])) {
+      header('Location: ../../index.php');
+      exit;
+  }
 
+  // Get user ID from query
+  $user_id = $_GET['user_id'] ?? 0;
+  $user = null;
+  $activity_level = '';
+  $weight_change = '';
+
+  if ($user_id) {
+      $stmt = mysqli_prepare($conn, "SELECT * FROM user_data WHERE user_id = ?");
+      mysqli_stmt_bind_param($stmt, "i", $user_id);
+      mysqli_stmt_execute($stmt);
+      $result = mysqli_stmt_get_result($stmt);
+      $user = mysqli_fetch_assoc($result);
+      mysqli_stmt_close($stmt);
+
+      if ($user) {
+          $activity_level = $user['activity_level'] ?? '';
+          $weight_change = $user['weight_change'] ?? '';
+      }
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -100,9 +113,9 @@ if ($user_id) {
             </div>
 
             <div class="form-group">
-              <label for="birthday">Birthday:</label>
-              <input type="date" name="birthday" id="birthday"
-                value="<?php echo htmlspecialchars($user['birthday'] ?? ''); ?>" required>
+              <label for="dob">Date of Birth:</label>
+              <input type="date" name="dob" id="dob"
+                value="<?php echo htmlspecialchars($user['dob'] ?? ''); ?>" required>
             </div>
 
             <div class="form-group">
@@ -137,6 +150,27 @@ if ($user_id) {
               <label for="goal_weight">Goal Weight (kg):</label>
               <input type="number" step="0.1" name="goal_weight" id="goal_weight"
                 value="<?php echo htmlspecialchars($user['goal_weight'] ?? ''); ?>" required>
+            </div>
+
+            <div class="form-group">
+              <label for="activity_level">Activity Level:</label>
+              <select name="activity_level" id="activity_level" required>
+                  <option value="Sedentary" <?php if($activity_level == 'Sedentary') echo 'selected'; ?>>Sedentary</option>
+                  <option value="Lightly active" <?php if($activity_level == 'Lightly active') echo 'selected'; ?>>Lightly active</option>
+                  <option value="Moderately active" <?php if($activity_level == 'Moderately active') echo 'selected'; ?>>Moderately active</option>
+                  <option value="Very active" <?php if($activity_level == 'Very active') echo 'selected'; ?>>Very active</option>
+                  <option value="Extra active" <?php if($activity_level == 'Extra active') echo 'selected'; ?>>Extra active</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="weight_change">Weight Change per Week (kg):</label>
+              <select name="weight_change" id="weight_change" required>
+                  <option value="0.25" <?php if($weight_change == '0.25') echo 'selected'; ?>>0.25 kg</option>
+                  <option value="0.5" <?php if($weight_change == '0.5') echo 'selected'; ?>>0.5 kg</option>
+                  <option value="0.75" <?php if($weight_change == '0.75') echo 'selected'; ?>>0.75 kg</option>
+                  <option value="1" <?php if($weight_change == '1') echo 'selected'; ?>>1 kg</option>
+              </select>
             </div>
 
             <div class="form-group">

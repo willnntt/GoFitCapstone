@@ -19,112 +19,28 @@ body {
     height: 100vh;
 }
 
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 80px;
-    height: 100vh;
-    background-color: #f4f1f9;
-    padding-top: 100px;
-    border-right: 1px solid #ccc;
-    text-align: center;
-    transition: width 0.3s ease;
-    overflow-x: hidden;
-    z-index: 999;
-}
-
-.sidebar.collapsed {
-    width: 0;
-    padding-top: 0;
-    border-right: none;
-    overflow: hidden;
-}
-
-.sidebar.collapsed .nav-item span {
-    display: none;
-}
-.sidebar.collapsed .menu-toggle {
-    display: block;
-}
-
-.sidebar.collapsed .nav-item {
-    justify-content: center; 
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar li {
-    padding: 10px 0;
-    cursor: pointer;
-    position: relative;
-}
-
-.sidebar a {
-    text-decoration: none;
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    font-size: 11px;
-    color: #333;
-    line-height: 1.2;
-    max-width: 100%;
-    word-wrap: break-word;
-    padding: 0 5px;
-    text-align: center;
-}
-
-.icon {
-    width: 22px;
-    height: 22px;
-    margin-bottom: 5px;
-}
-
-.sidebar li.active {
-    background-color: #e0d6ef;
-    border-left: 3px solid #9269c7;
-}
-
-.sidebar li:hover {
-    background-color: #eee;
-}
-
-.inline-icon {
-    width: 14px;
-    vertical-align: middle;
-    margin-right: 6px;
-}
-
-.menu-toggle {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    width: 80px;
-    text-align: center;
-    cursor: pointer;
-    z-index: 1000;
-    background-color: #f4f1f9;
-    padding: 10px 0;
-}
-
-.hamburger-icon {
-    width: 24px;
-    height: 24px;
-}
-
 .main-content {
     flex-grow: 1;
     margin-left: 80px;
     padding: 20px;
     background-color: #fff;
+}
+
+.sub-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.back-btn {
+    padding: 6px 16px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .add-btn {

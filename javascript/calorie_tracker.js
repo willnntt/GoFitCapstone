@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let foodData = [];
 
     let totalCalories = 0;
-    const maxCalories = 2000;
+    let maxCalories = window.calorie_goal;
 
     function fetchFoodData(callback) {
-        fetch('load_food.php')
+        fetch('../load_food.php')
             .then(response => response.json())
             .then(data => {
                 foodData = data;

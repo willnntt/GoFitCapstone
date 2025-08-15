@@ -20,7 +20,7 @@
             'food_id' => (int)$row['food_id'],
             'name' => $row['name'],
             'brand' => $row['brand'],
-            'calories' => (float)$row['calories'],
+            'calories' => (int)$row['calories'],
             'portion_unit' => $row['portion_unit'],
             'carbs' => (float)$row['carbs'],
             'protein' => (float)$row['protein'],

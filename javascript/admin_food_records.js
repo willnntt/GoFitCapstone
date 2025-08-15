@@ -17,18 +17,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     const tr = document.createElement('tr');
 
                     tr.innerHTML = `
-          <td>${food.food_id}</td>
-          <td>${food.name}</td>
-          <td>${food.brand}</td>
-          <td>${food.calories}</td>
-          <td>${food.portion_unit}</td>
-          <td>${food.carbs}</td>
-          <td>${food.protein}</td>
-          <td>${food.fats}</td>
-          <td>
-            <i class="fa-solid fa-pen-to-square edit-food-btn" style="cursor:pointer; margin-right:10px;" data-id="${food.food_id}"></i>
-            <i class="fa-solid fa-trash delete-food-btn" style="cursor:pointer; color:red;" data-id="${food.food_id}"></i>
-          </td>
+            <td>${food.food_id}</td>
+            <td>${food.name}</td>
+            <td>${food.brand}</td>
+            <td>${food.calories}</td>
+            <td>${food.portion_unit}</td>
+            <td>${parseFloat(food.carbs).toFixed(1)}</td>
+            <td>${parseFloat(food.protein).toFixed(1)}</td>
+            <td>${parseFloat(food.fats).toFixed(1)}</td>
+            <td>
+                <i class="fa-solid fa-pen-to-square edit-food-btn" style="cursor:pointer; margin-right:10px;" data-id="${food.food_id}"></i>
+                <i class="fa-solid fa-trash delete-food-btn" style="cursor:pointer; color:red;" data-id="${food.food_id}"></i>
+            </td>
         `;
 
                     foodTableBody.appendChild(tr);

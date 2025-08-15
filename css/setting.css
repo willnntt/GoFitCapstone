@@ -14,105 +14,10 @@ body {
     height: 100vh;
 }
 
-.sidebar {
-    width: 80px;
-    background-color: #f4f1f9;
-    padding-top: 100px;
-    border-right: 1px solid #ccc;
-    text-align: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-}
-
-.sidebar.collapsed {
-    width: 0;
-    padding-top: 0;
-    border-right: none;
-    overflow: hidden;
-}
-
-.sidebar.collapsed .nav-item span {
-    display: none;
-}
-.sidebar.collapsed .menu-toggle {
-    display: block;
-}
-
-.sidebar.collapsed .nav-item {
-    justify-content: center; 
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar li {
-    padding: 10px 0;
-    cursor: pointer;
-    position: relative;
-}
-
-.sidebar a {
-    text-decoration: none;
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    font-size: 11px;
-    color: #333;
-    line-height: 1.2;
-    max-width: 100%;
-    word-wrap: break-word;
-    padding: 0 5px;
-    text-align: center;
-}
-
-.icon {
-    width: 22px;
-    height: 22px;
-    margin-bottom: 5px;
-}
-
-.sidebar li.active {
-    background-color: #e0d6ef;
-    border-left: 3px solid #9269c7;
-}
-
-.sidebar li:hover {
-    background-color: #eee;
-}
-
-.inline-icon {
-    width: 14px;
-    vertical-align: middle;
-    margin-right: 6px;
-}
-
-.menu-toggle {
-    text-align: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-
-    position: absolute;
-    top: 35px;
-    left: 0;
-    width: 80px; 
-    z-index: 2;
-}
-
-.hamburger-icon {
-    width: 24px;
-    height: 24px;
-}
-
 .main-content {
     flex-grow: 1;
     padding: 20px;
+    margin-left: 80px;
     background-color: #fff;
 }
 
@@ -120,6 +25,27 @@ body {
     background-color: #d9d9d9;
     padding: 10px;
     text-align: center;
+}
+
+.sub-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.back-btn {
+    padding: 6px 16px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #bbb;
 }
 
 .settings-card {
@@ -222,6 +148,19 @@ body {
 
 .save-btn:hover { background-color: #003680; }
 .cancel-btn:hover { background-color: #800; }
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 23%;
+    cursor: pointer;
+    color: #aaa;
+    font-size: 18px;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
 
 @media (max-width: 768px) {
    .wrapper {

@@ -2,7 +2,7 @@
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
     
-    include '../conn.php';
+    include 'conn.php';
 
     $query = "SELECT * FROM foods";
     $result = mysqli_query($conn, $query);

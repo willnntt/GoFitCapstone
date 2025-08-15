@@ -1,3 +1,12 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: ../../index.php');
+        exit;
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +73,9 @@
 
             <div class="sub-header">
                 <h2>Food Database</h2>
-                <button class="back-btn">Back</button>
+                <a href="../../index.php">
+                    <button class="back-btn">Log out</button>
+                </a>
             </div>
 
             <div class="table-container">

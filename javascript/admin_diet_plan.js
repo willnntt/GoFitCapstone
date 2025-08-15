@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    let currentDay = 1;
-    let currentMealType = null;
-
     const urlParams = new URLSearchParams(window.location.search);
     let planId = urlParams.get('id') || null;
 
@@ -15,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const grid = document.querySelector('.photo-grid');
         if (!grid) return;
 
-        fetch('admin_load_dietplan.php')
+        fetch('../load_dietplan.php')
             .then(res => res.json())
             .then(data => {
                 if (!data.success) {

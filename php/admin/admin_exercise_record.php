@@ -1,16 +1,33 @@
 <?php
   include '../conn.php';
 
-  $exercise_id = intval($_GET['exercise_id'] ?? 0);
-  $exercise = null;
-  $form_action = "admin_create_exercise.php"; // default action for create
+  session_start();
 
-  if ($exercise_id > 0) {
-      $sql = "SELECT * FROM exercises WHERE exercise_id = $exercise_id LIMIT 1";
-      $result = mysqli_query($conn, $sql);
-      if ($result && mysqli_num_rows($result) > 0) {
-          $exercise = mysqli_fetch_assoc($result);
-          $form_action = "admin_update_exercise.php"; // switch to update script
+  if (!isset($_SESSION['user_id'])) {
+      header('Location: ../../index.php');
+      exit;
+  }
+
+
+  $exercise = [
+      'exercise_id' => '',
+      'name' => '',
+      'category' => '',
+      'difficulty' => '',
+      'description' => '',
+  ];
+
+  if (isset($_GET['exercise_id'])) {
+      $exercise_id = intval($_GET['exercise_id']);
+      if ($exercise_id > 0) {
+          $stmt = $conn->prepare("SELECT * FROM exercises WHERE exercise_id = ?");
+          $stmt->bind_param("i", $exercise_id);
+          $stmt->execute();
+          $result = $stmt->get_result();
+          if ($result && $result->num_rows === 1) {
+              $exercise = $result->fetch_assoc();
+          }
+          $stmt->close();
       }
   }
 ?>
@@ -90,7 +107,7 @@
 
       <div class="form-container">
         <div class="form-box">
-          <form action="<?php echo htmlspecialchars($form_action); ?>" method="POST" id="exerciseForm">
+          <form action="admin_save_exercise.php" method="POST" id="exerciseForm">
             <input type="hidden" name="exercise_id" id="exercise_id" value="<?php echo htmlspecialchars($exercise['exercise_id'] ?? ''); ?>" />
 
             <div class="form-group">
