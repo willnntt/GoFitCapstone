@@ -50,11 +50,6 @@ body {
     z-index: 2;
 }
 
-.hamburger-icon {
-    width: 24px;
-    height: 24px;
-}
-
 .main-content {
   padding: 15px;
   display: grid;
