@@ -11,7 +11,7 @@ body {
   width: 100%;
 }
 
-.main {
+.main-content {
   flex: 1;
   padding: 20px;
   margin-left: 80px;
@@ -241,7 +241,7 @@ h4 {
   margin-bottom: 2px; 
   }
 
-  .main {
+  .main-content {
     padding-bottom: 80px;
   }
 

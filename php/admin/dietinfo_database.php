@@ -32,7 +32,7 @@
       </div>
 
       <div class="sidebar-toggle-arrow" style="display: none;">
-        <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" />
+        <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" class="icon">
       </div>
 
       <ul>

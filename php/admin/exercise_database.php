@@ -26,7 +26,7 @@
             </div>
 
             <div class="sidebar-toggle-arrow" style="display: none;">
-                <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" />
+                <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" class="icon">
             </div>            
 
             <ul>
@@ -97,7 +97,9 @@
             </div>
 
             <div class="add-button-container">
-                <button class="add-btn">Add</button>
+                <a href="admin_exercise_record.php">
+                    <button class="add-btn">Add</button>
+                </a>
             </div>
         </div>
     </div>

@@ -49,7 +49,7 @@ function openModal(field, oldValue) {
 
     const weightChangeLabels = {
         '0.25': '0.25 kg/week',
-        '0.5': '0.5 kg/week',
+        '0.50': '0.5 kg/week',
         '0.75': '0.75 kg/week',
         '1': '1 kg/week'
     };
@@ -101,9 +101,8 @@ function openModal(field, oldValue) {
         inputWrapper.innerHTML = `
             <select id="newInfo">
                 <option value="0.25" ${oldValueStr == 0.25 ? 'selected' : ''}>0.25 kg/week</option>
-                <option value="0.5" ${oldValueStr == 0.5 ? 'selected' : ''}>0.5 kg/week</option>
+                <option value="0.5" ${oldValueStr == 0.50 ? 'selected' : ''}>0.5 kg/week</option>
                 <option value="0.75" ${oldValueStr == 0.75 ? 'selected' : ''}>0.75 kg/week</option>
-                <option value="1" ${oldValueStr == 1 ? 'selected' : ''}>1 kg/week</option>
             </select>
         `;
     } 

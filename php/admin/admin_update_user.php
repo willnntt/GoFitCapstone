@@ -6,7 +6,7 @@
 
         $user_id = (int) $_POST['user_id'];
         $username = trim($_POST['username']);
-        $dob = $_POST['birthday'];
+        $dob = $_POST['dob'];
         $email = trim($_POST['email']);
         $gender = $_POST['gender'];
         $height = (float) $_POST['height'];
@@ -45,7 +45,7 @@
         // Update DB
         $stmt = $conn->prepare("
             UPDATE user_data 
-            SET username = ?, birthday = ?, email = ?, gender = ?, height = ?, weight = ?, 
+            SET username = ?, dob = ?, email = ?, gender = ?, height = ?, weight = ?, 
                 goal_weight = ?, activity_level = ?, weight_change = ?, age = ?, bmi = ?, 
                 bmr = ?, tdee = ?, calorie_goal = ?
             WHERE user_id = ?

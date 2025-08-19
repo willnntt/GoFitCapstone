@@ -7,8 +7,7 @@
         exit;
     }  
 
-    $user_id = $_SESSION['user_id'];
-    $username = $_SESSION['username'];    
+    $user_id = $_SESSION['user_id'];    
 
     // Fetch user data
     $query = "SELECT * FROM user_data WHERE user_id = ?";
@@ -22,6 +21,7 @@
     $goalWeight = $user['goal_weight'];
     $bmi = $user['bmi'];
     $age = $user['age'];
+    $username = $user['username'];
 
     $bodyComposition = "";
 
@@ -90,8 +90,13 @@
             <div class="menu-toggle">
                 <img src="../../assets/icons/hamburger.png" alt="Menu" class="hamburger-icon">
             </div>
+
+            <div class="sidebar-toggle-arrow" style="display: none;">
+                <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" class="icon">
+            </div>
+
             <ul>
-                <li>
+                <li class="active">
                     <a href="dashboard.php">
                         <div class="nav-item">
                             <img src="../../assets/icons/user.png" alt="User Icon" class="icon">
@@ -115,7 +120,7 @@
                         </div>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="diet_plan.php">
                         <div class="nav-item">
                             <img src="../../assets/icons/diet.png" alt="Diet Icon" class="icon">
@@ -134,7 +139,7 @@
             </ul>
         </div>
 
-        <div class="main">
+        <div class="main-content">
             <div class="header">
                 <h1>GoFit WebApp</h1>
             </div>
@@ -169,19 +174,7 @@
                             <h4>Latest Exercise</h4>
 
                             <?php if ($exercise): ?>
-                                <p><strong><?= htmlspecialchars($exercise['exercise_name']) ?></strong></p>
-                                
-                                <?php if ($exercise['type'] === 'Strength'): ?>
-                                    <p>Sets: <?= intval($exercise['sets']) ?></p>
-                                    <p>Reps: <?= intval($exercise['reps']) ?></p>
-                                    <p>Weight: <?= htmlspecialchars($exercise['weight']) ?> kg</p>
-                                <?php elseif ($exercise['type'] === 'Flexibility'): ?>
-                                    <p>Sets: <?= intval($exercise['sets']) ?></p>
-                                    <p>Reps: <?= intval($exercise['reps']) ?></p>
-                                <?php elseif ($exercise['type'] === 'Aerobic'): ?>
-                                    <p>Duration: <?= htmlspecialchars($exercise['duration']) ?> mins</p>
-                                    <p>Distance: <?= htmlspecialchars($exercise['distance']) ?> km</p>
-                                <?php endif; ?>
+                                <p><strong><?= htmlspecialchars($exercise['name']) ?></strong></p>
                                 
                                 <p>Date: <?= date('Y-m-d', strtotime($exercise['date'])) ?></p>
                             <?php else: ?>
@@ -195,7 +188,7 @@
 
                             <?php if ($diet): ?>
                                 <div class='diet-plan'>
-                                        <img src='<?= '../../../' . htmlspecialchars($diet['image']) ?>' alt='Diet Plan Image' class='diet-img'>
+                                        <img src='<?= '/Webapp/assets/images/' . htmlspecialchars($diet['image']) ?>' alt='Diet Plan Image' class='diet-img'>
                                         <span class='diet-name'><?= htmlspecialchars($diet['name']) ?></span>
                                     </div>
                             <?php else: ?>

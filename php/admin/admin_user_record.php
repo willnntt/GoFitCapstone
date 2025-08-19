@@ -48,7 +48,7 @@
       </div>
 
       <div class="sidebar-toggle-arrow" style="display: none;">
-        <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" />
+        <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" class="icon">
       </div>
 
       <ul>
@@ -169,7 +169,6 @@
                   <option value="0.25" <?php if($weight_change == '0.25') echo 'selected'; ?>>0.25 kg</option>
                   <option value="0.5" <?php if($weight_change == '0.5') echo 'selected'; ?>>0.5 kg</option>
                   <option value="0.75" <?php if($weight_change == '0.75') echo 'selected'; ?>>0.75 kg</option>
-                  <option value="1" <?php if($weight_change == '1') echo 'selected'; ?>>1 kg</option>
               </select>
             </div>
 
@@ -185,7 +184,6 @@
             </div>
 
             <div class="form-buttons">
-              <input type="reset" value="Reset">
               <input type="submit" value="Update">
             </div>
           </form>

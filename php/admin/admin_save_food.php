@@ -2,11 +2,11 @@
     include '../conn.php';
 
     // Sanitize and assign inputs
-    $food_id = isset($_POST['food_id']) ? intval($_POST['food_id']) : 0;
+    $food_id = intval($_POST['food_id'] ?? 0);
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $brand = mysqli_real_escape_string($conn, $_POST['brand']);
     $calories = intval($_POST['calories']);
-    $portion_unit = isset($_POST['portion_unit']) ? mysqli_real_escape_string($conn, $_POST['portion_unit']) : '';
+    $portion_unit = mysqli_real_escape_string($conn, $_POST['portion_unit']);
     $carbs = floatval($_POST['carbs']);
     $protein = floatval($_POST['protein']);
     $fats = floatval($_POST['fats']);
@@ -18,6 +18,7 @@
             name = '$name',
             brand = '$brand',
             calories = $calories,
+            portion_unit = '$portion_unit',
             carbs = $carbs,
             protein = $protein,
             fats = $fats

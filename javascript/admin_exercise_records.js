@@ -21,20 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${exercise.difficulty}</td>
                 <td>${exercise.description}</td>
                 <td>
-                    <i class="fa-solid fa-pen-to-square edit-exercise" style="cursor:pointer; margin-right:10px;" data-id="${exercise.exercise_id}"></i>
+                    <a href="admin_exercise_redcord.php?exercise_id=${exercise.exercise_id}">
+                        <i class="fa-solid fa-pen-to-square edit-exercise" style="cursor:pointer; margin-right:10px;></i>
+                    </a>
                     <i class="fa-solid fa-trash delete-exercise" style="cursor:pointer; color:red;" data-id="${exercise.exercise_id}"></i>
                 </td>
                 `;
 
                     tbody.appendChild(tr);
-                });
-
-                // Attach listeners after rows are added
-                document.querySelectorAll('.edit-exercise').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const exerciseId = btn.getAttribute('data-id');
-                        location.href = `admin_exercise_record.php?exercise_id=${exerciseId}`;
-                    });
                 });
 
                 document.querySelectorAll('.delete-exercise').forEach(btn => {
@@ -57,10 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(() => alert('Error loading exercises'));
     }
-
-    document.querySelector('.add-btn').addEventListener('click', () => {
-        location.href = 'admin_exercise_record.php';
-    });
 
     loadExercises();
 });

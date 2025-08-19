@@ -152,11 +152,10 @@ td:last-child {
 .form-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: right;
 }
 
-.form-buttons input[type="submit"],
-.form-buttons input[type="reset"] {
+.form-buttons input[type="submit"] {
   width: 120px;
   padding: 10px;
   margin-right: 10px;
@@ -168,8 +167,7 @@ td:last-child {
   transition: background-color 0.3s;
 }
 
-.form-buttons input[type="submit"]:hover,
-.form-buttons input[type="reset"]:hover {
+.form-buttons input[type="submit"]:hover{
   background-color: #bbb;
 }
 

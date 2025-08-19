@@ -142,7 +142,6 @@
             </div>
 
             <div class="form-buttons">
-              <input type="reset" value="Reset" />
               <input type="submit" value="Submit" />
             </div>
           </form>
