@@ -122,7 +122,6 @@
                 <option value="" disabled <?php echo empty($exercise['category']) ? 'selected' : ''; ?>>Select Category</option>
                 <option value="Strength" <?php echo (isset($exercise['category']) && $exercise['category'] === 'Strength') ? 'selected' : ''; ?>>Strength</option>
                 <option value="Aerobic" <?php echo (isset($exercise['category']) && $exercise['category'] === 'Aerobic') ? 'selected' : ''; ?>>Aerobic</option>
-                <option value="Stretching" <?php echo (isset($exercise['category']) && $exercise['category'] === 'Stretching') ? 'selected' : ''; ?>>Stretching</option>
               </select>
             </div>
 
@@ -134,11 +133,6 @@
                 <option value="Intermediate" <?php echo (isset($exercise['difficulty']) && $exercise['difficulty'] === 'Intermediate') ? 'selected' : ''; ?>>Intermediate</option>
                 <option value="Advanced" <?php echo (isset($exercise['difficulty']) && $exercise['difficulty'] === 'Advanced') ? 'selected' : ''; ?>>Advanced</option>
               </select>
-            </div>
-
-            <div class="form-group">
-              <label for="description">Description:</label>
-              <textarea id="description" name="description" rows="4" placeholder="Enter full description..." required ><?php echo htmlspecialchars($exercise['description'] ?? ''); ?></textarea>
             </div>
 
             <div class="form-buttons">

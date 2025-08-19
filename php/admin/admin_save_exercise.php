@@ -6,7 +6,6 @@
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $category = mysqli_real_escape_string($conn, $_POST['category']);
     $difficulty = mysqli_real_escape_string($conn, $_POST['difficulty']);
-    $description = mysqli_real_escape_string($conn, $_POST['description']);
 
     if ($exercise_id > 0) {
         // UPDATE existing exercise
@@ -18,8 +17,8 @@
                 WHERE exercise_id = $exercise_id";
     } else {
         // INSERT new exercise
-        $sql = "INSERT INTO exercises (name, category, difficulty, description) 
-                VALUES ('$name', '$category', '$difficulty', '$description')";
+        $sql = "INSERT INTO exercises (name, category, difficulty) 
+                VALUES ('$name', '$category', '$difficulty')";
     }
 
     if (mysqli_query($conn, $sql)) {

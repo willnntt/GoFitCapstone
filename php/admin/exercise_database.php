@@ -86,7 +86,6 @@
                             <th>Name</th>
                             <th>Category</th>
                             <th>Difficulty</th>
-                            <th>Description</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
