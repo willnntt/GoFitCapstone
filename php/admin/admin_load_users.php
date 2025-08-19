@@ -3,7 +3,7 @@
 
     header('Content-Type: application/json');
 
-    $query = "SELECT * FROM user_data";
+    $query = "SELECT * FROM user_data WHERE user_id > 1";
     $result = mysqli_query($conn, $query);
 
     if (!$result) {

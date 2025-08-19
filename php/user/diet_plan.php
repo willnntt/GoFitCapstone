@@ -22,9 +22,14 @@
             <div class="menu-toggle">
                 <img src="../../assets/icons/hamburger.png" alt="Menu" class="hamburger-icon">
             </div>
+
+            <div class="sidebar-toggle-arrow" style="display: none;">
+                <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" class="icon">
+            </div>
+
             <ul>
                 <li>
-                    <a href="user_dashboard.php">
+                    <a href="dashboard.php">
                         <div class="nav-item">
                             <img src="../../assets/icons/user.png" alt="User Icon" class="icon">
                             <span>Dashboard</span>

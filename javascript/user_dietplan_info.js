@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const BASE_IMAGE_PATH = '/Webapp/assets/images/';
     const urlParams = new URLSearchParams(window.location.search);
     let planId = urlParams.get('plan_id') || null;
 
@@ -53,13 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (data.image) {
-                    imagePreview.src = data.image;
+                    imagePreview.src = BASE_IMAGE_PATH + data.image;
                     pictureBox.classList.add('has-image');
                 } else {
                     imagePreview.src = "";
                     pictureBox.classList.remove('has-image');
                 }
-                console.log('Image URL set to:', data.image);
+                console.log('Image URL set to:', BASE_IMAGE_PATH + data.image);
 
 
                 // Load meals into the tables
@@ -86,15 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>${meal.carbs}</td>
                         <td>${meal.protein}</td>
                         <td>${meal.fats}</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-trash delete-meal"></i>
-                        </td>
                     `;
-
-                        row.querySelector('.delete-meal').addEventListener('click', () => {
-                            deleteMeal(meal.id, row);
-                        });
-
                         tbody.appendChild(row);
                     });
                 });
@@ -145,13 +138,29 @@ document.addEventListener('DOMContentLoaded', () => {
     viewDietInfo();
 });
 
-// Accept Plan
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     let planId = urlParams.get('plan_id') || null;
     const acceptBtn = document.querySelector(".plan-btn");
 
     let planAccepted = false;
+
+    // Check current status from backend
+    fetch(`check_plan_status.php?plan_id=${planId}`)
+        .then(res => res.json())
+        .then(data => {
+            planAccepted = data.accepted;
+
+            if (planAccepted) {
+                acceptBtn.classList.remove('accept-btn');
+                acceptBtn.classList.add('cancel-btn');
+                acceptBtn.textContent = 'Cancel Plan';
+            } else {
+                acceptBtn.classList.remove('cancel-btn');
+                acceptBtn.classList.add('accept-btn');
+                acceptBtn.textContent = 'Accept Plan';
+            }
+        });
 
     acceptBtn.addEventListener("click", () => {
         const startDate = new Date().toISOString().split('T')[0];
@@ -170,11 +179,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         acceptBtn.classList.remove('accept-btn');
                         acceptBtn.classList.add('cancel-btn');
                         acceptBtn.textContent = 'Cancel Plan';
+                    } else if (data.message) {
+                        alert(data.message);
                     }
                 });
         } else {
             // Cancel plan
-            fetch("update_plan.php", {
+            fetch("user_update_plan.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `action=cancel&plan_id=${planId}`
@@ -186,6 +197,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         acceptBtn.classList.remove('cancel-btn');
                         acceptBtn.classList.add('accept-btn');
                         acceptBtn.textContent = 'Accept Plan';
+                    } else if (data.message) {
+                        alert(data.message);
                     }
                 });
         }

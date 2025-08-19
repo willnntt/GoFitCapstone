@@ -105,13 +105,10 @@
 .sidebar-toggle-arrow {
     position: fixed;
     top: 20px;
-    left: 10px; /* adjust depending on sidebar width */
+    left: 10px;
     z-index: 999;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 5px;
-    border-radius: 4px;
-    cursor: pointer;
+    background: none; 
+    display: none; /* hidden by default */
 }
 
 .sidebar.collapsed + .sidebar-toggle-arrow {

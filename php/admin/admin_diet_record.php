@@ -1,9 +1,22 @@
 <?php
   session_start();
+  include '../conn.php';
 
   if (!isset($_SESSION['user_id'])) {
       header('Location: ../../index.php');
       exit;
+  }
+
+  $plan_id = intval($_GET['plan_id'] ?? 0);
+  $plan = null;
+  $is_edit = false;
+
+  if ($plan_id > 0) {
+      $result = mysqli_query($conn, "SELECT * FROM diet_plans WHERE plan_id = $plan_id");
+      $plan = mysqli_fetch_assoc($result);
+      if ($plan) {
+          $is_edit = true;
+      }
   }
 ?>
 
@@ -27,7 +40,7 @@
       </div>
 
       <div class="sidebar-toggle-arrow" style="display: none;">
-        <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" />
+        <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" class="icon">
       </div>
 
       <ul>
@@ -81,29 +94,40 @@
       </div>
 
       <div class="form-container">
-        <div class="form-box">
-          <form action="admin_create_dietplan.php" method="POST" enctype="multipart/form-data">
-              <div class="form-group">
-                  <label for="name">Diet Plan Name:</label>
-                  <input type="text" id="name" name="name" placeholder="Keto Diet" required />
-              </div>
+          <div class="form-box">
+              <form action="admin_save_dietplan.php" method="POST" enctype="multipart/form-data">
+                <?php if ($is_edit): ?>
+                    <input type="hidden" name="plan_id" value="<?php echo $plan['plan_id']; ?>" />
+                <?php endif; ?>
 
-              <div class="form-group">
-                  <label for="description">Description:</label>
-                  <textarea id="description" name="description" rows="4" placeholder="Enter full description..." required></textarea>
-              </div>
+                <div class="form-group">
+                    <label for="name">Diet Plan Name:</label>
+                    <input type="text" id="name" name="name" 
+                          value="<?php echo $is_edit ? htmlspecialchars($plan['name']) : ''; ?>" 
+                          placeholder="Keto Diet" required />
+                </div>
 
-              <div class="form-group">
-                  <label for="image">Diet Plan Image:</label>
-                  <input type="file" id="image" name="image" accept="image/*" />
-              </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" placeholder="Enter full description..." required><?php 
+                        echo $is_edit ? htmlspecialchars($plan['description']) : ''; 
+                    ?></textarea>
+                </div>
 
-              <div class="form-buttons">
-                  <input type="reset" value="Reset" />
-                  <input type="submit" value="Create Diet Plan" />
-              </div>
-          </form>
-        </div>
+                <div class="form-group">
+                    <label>Diet Plan Image</label><br>
+                    <?php if (!empty($plan['image'])): ?>
+                        <img src="<?php echo '/Webapp/assets/images/' . $plan['image']; ?>" alt="Current Image" style="max-width:150px;"><br>
+                        <small>Current image shown. Choose a new file to replace.</small><br>
+                    <?php endif; ?>
+                    <input type="file" name="image" accept="image/*">
+                </div>
+
+                <div class="form-buttons">
+                    <input type="submit" value="<?php echo $is_edit ? 'Update Diet Plan' : 'Create Diet Plan'; ?>" />
+                </div>
+            </form>
+          </div>
       </div>
     </div>
   </div>

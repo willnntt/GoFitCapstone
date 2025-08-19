@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const BASE_IMAGE_PATH = '/Webapp/assets/images/';
 
     function loadDietPlans() {
         const container = document.querySelector('.scroll-container');
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     card.classList.add('plan-card');
 
                     card.innerHTML = `
-                        <img src="${plan.image}" alt="${plan.name}">
+                        <img src="${BASE_IMAGE_PATH}${plan.image}" alt="${plan.name}">
                     `;
 
                     card.addEventListener('click', () => {

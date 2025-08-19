@@ -12,6 +12,8 @@ body {
 .wrapper {
     display: flex;
     height: auto;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .main-content {
@@ -80,7 +82,7 @@ body {
     color: #333;
     font-size: 28px;
     margin: 0;
-    min-width: 100px;
+    min-width: 120px;
     text-align: center;
 }
 
@@ -92,10 +94,17 @@ body {
     color: #000000;
     padding: 8px 15px;
     transition: all 0.2s;
+    border-radius: 50%;
 }
 
 .arrow-btn:hover {
     transform: scale(1.2);
+    background-color: rgba(38, 225, 238, 0.1);
+}
+
+.arrow-btn:active {
+    transform: scale(1.1);
+    background-color: rgba(38, 225, 238, 0.2);
 }
 
 /* Exercise Display */
@@ -111,6 +120,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    padding: 40px 20px;
 }
 
 .exercise-picture {
@@ -120,6 +130,9 @@ body {
     border-radius: 12px;
     overflow: hidden;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .exercise-picture img {
@@ -159,6 +172,7 @@ body {
 
 .current-exercise {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 8px 0;
     border-bottom: 1px solid #e0e0e0;
@@ -173,6 +187,66 @@ body {
     font-weight: 500;
 }
 
+/* Exercise Log Display */
+.exercise-log {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-left: 4px solid #26e1ee;
+}
+
+.exercise-log h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-size: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.exercise-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.exercise-row label {
+    font-weight: 500;
+    color: #555;
+    margin-right: 5px;
+}
+
+.exercise-row input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 70px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.exercise-row input:focus {
+    outline: none;
+    border-color: #26e1ee;
+    box-shadow: 0 0 5px rgba(38, 225, 238, 0.3);
+}
+
+.exercise-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    justify-content: center;
+}
+
 /* Buttons */
 .interact-btn.add-exercise, .interact-btn.start-session {
     background-color: #26e1ee;
@@ -182,42 +256,99 @@ body {
     border-radius: 30px;
     font-size: 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
     font-weight: bold;
     width: 100%;
     max-width: 250px;
     margin: 15px 0;
+    position: relative;
+    overflow: hidden;
 }
 
 .interact-btn.add-exercise:hover, .interact-btn.start-session:hover {
     background-color: #0126f7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(1, 38, 247, 0.3);
+}
+
+.interact-btn.add-exercise:active, .interact-btn.start-session:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(1, 38, 247, 0.3);
 }
 
 .interact-btn.add-exercise {
-    display: none;
+    visibility: hidden;
+}
+
+.add-set-btn, .remove-exercise-btn, .remove-set-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-set-btn {
+    background-color: #26e1ee;
+    color: white;
+}
+
+.add-set-btn:hover {
+    background-color: #0126f7;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(1, 38, 247, 0.3);
+}
+
+.remove-exercise-btn, .remove-set-btn {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.remove-exercise-btn:hover, .remove-set-btn:hover {
+    background-color: #ff0000;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+}
+
+.remove-set-btn {
+    padding: 4px 8px;
+    font-size: 16px;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Popup Styles */
 #popup {
     position: fixed;
     top: 50%;
-    left: calc(50% + 125px);
+    left: 50%;
     transform: translate(-50%, -50%);
     background: #fff;
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    box-shadow: 0 0 30px rgba(0,0,0,0.4);
     display: none;
     width: 85%;
-    max-width: 400px;
+    max-width: 450px;
     max-height: 85vh;
     overflow-y: auto;
     z-index: 1000;
+    animation: popupSlideIn 0.3s ease-out;
 }
 
 #popup h3 {
     font-size: 24px;
     margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
 }
 
 #overlay {
@@ -229,27 +360,54 @@ body {
     background: rgba(0,0,0,0.5);
     display: none;
     z-index: 999;
+    animation: fadeIn 0.3s ease-out;
 }
 
 /* Exercise List Styles */
 .exercise-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .exercise-option {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 15px;
-    background-color: #f5f5f5;
+    padding: 15px;
+    background-color: #f8f9fa;
     border-radius: 8px;
     transition: all 0.2s;
+    border: 1px solid transparent;
 }
 
 .exercise-option:hover {
-    background-color: #e9e9e9;
+    background-color: #e9ecef;
+    border-color: #26e1ee;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.exercise-name {
+    flex: 1;
+    text-align: left;
+}
+
+.exercise-name strong {
+    display: block;
+    color: #2c3e50;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.exercise-name small {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.exercise-action {
+    width: 40px;
+    text-align: center;
 }
 
 .add-exercise-btn {
@@ -257,32 +415,121 @@ body {
     color: white;
     border: none;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
     cursor: pointer;
     transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: bold;
 }
 
 .add-exercise-btn:hover {
     background-color: #0126f7;
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 2px 8px rgba(1, 38, 247, 0.3);
+}
+
+.add-exercise-btn:active {
+    transform: scale(1.05) rotate(90deg);
+}
+
+.add-exercise-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Timer Display */
 .timer-display {
     font-family: 'Courier New', monospace;
-    font-size: 28px;
-    color: #333;
+    font-size: 32px;
+    color: #2c3e50;
     margin: 20px 0;
-    padding: 15px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 12px;
     display: inline-block;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 2px solid #26e1ee;
 }
+
+/* Feedback Messages */
+.feedback-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 10000;
+    font-weight: bold;
+    color: white;
+    max-width: 300px;
+}
+
+.feedback-message.success {
+    background-color: #4CAF50;
+}
+
+.feedback-message.error {
+    background-color: #f44336;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from { 
+        transform: translateX(100%); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateX(0); 
+        opacity: 1; 
+    }
+}
+
+@keyframes slideOut {
+    from { 
+        transform: translateX(0); 
+        opacity: 1; 
+    }
+    to { 
+        transform: translateX(100%); 
+        opacity: 0; 
+    }
+}
+
+@keyframes popupSlideIn {
+    from {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+        scale: 0.9;
+    }
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Loading States */
+.loading {
+    animation: pulse 1.5s infinite;
+}
+
 /* Exercise Selection Table */
 .exercise-selection-table {
     width: 100%;
@@ -292,54 +539,210 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.exercise-row {
-    display: flex;
-    padding: 12px 15px;
-    align-items: center;
-    border-bottom: 1px solid #f0f0f0;
-}
-
 .exercise-row.header {
     background-color: #f8f9fa;
     font-weight: bold;
 }
 
-.exercise-name {
-    flex: 1;
-    text-align: left;
-    padding-left: 10px;
+/* Form Styles */
+.exercise-form {
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
 }
 
-.exercise-action {
-    width: 60px;
-    text-align: center;
-}
-
-.exercise-option {
+.input-row {
     display: flex;
-    transition: background-color 0.2s;
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
-.exercise-option:hover {
+.input-container {
+    flex: 1;
+    margin-bottom: 15px;
+}
+
+.input-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+
+.input-container .input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.input-container .input:focus {
+    outline: none;
+    border-color: #26e1ee;
+    box-shadow: 0 0 5px rgba(38, 225, 238, 0.3);
+}
+
+/* Exercise History */
+.exercise-history {
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.exercise-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.exercise-table th {
+    text-align: left;
+    padding: 12px 15px;
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #ddd;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.exercise-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.exercise-table tr:last-child td {
+    border-bottom: none;
+}
+
+.exercise-table tr:hover {
     background-color: #f8f9fa;
 }
 
-.add-exercise-btn {
+/* Button styles matching design */
+.btn-primary {
     background-color: #26e1ee;
     color: white;
     border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    padding: 12px 25px;
+    border-radius: 30px;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
 }
 
-.add-exercise-btn:hover {
+.btn-primary:hover {
     background-color: #0126f7;
-    transform: scale(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(1, 38, 247, 0.3);
+}
+
+/* Status Indicators */
+.exercise-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-completed {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-in-progress {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-planned {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+    
+    .exercise-card {
+        padding: 20px;
+        margin: 0 10px;
+    }
+    
+    .input-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .exercise-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .exercise-row {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .exercise-row input {
+        width: 60px;
+    }
+    
+    #popup {
+        left: 50%;
+        width: 95%;
+        max-width: none;
+    }
+    
+    .day-header h2 {
+        font-size: 24px;
+        min-width: 100px;
+    }
+    
+    .timer-display {
+        font-size: 24px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .exercise-card {
+        padding: 15px;
+    }
+    
+    .website-title {
+        font-size: 18px;
+    }
+    
+    .day-header h2 {
+        font-size: 20px;
+    }
+    
+    .interact-btn.add-exercise, .interact-btn.start-session {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+    
+    .exercise-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .feedback-message {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
 }

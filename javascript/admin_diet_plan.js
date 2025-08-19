@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const BASE_IMAGE_PATH = '/Webapp/assets/images/';
     const urlParams = new URLSearchParams(window.location.search);
     let planId = urlParams.get('id') || null;
 
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const box = document.createElement('div');
                     box.classList.add('photo-box');
                     box.innerHTML = `
-                    <img src="${plan.image}" alt="${plan.name}" class="photo-image">
+                    <img src="${BASE_IMAGE_PATH}${plan.image}" alt="${plan.name}" class="photo-image">
                     <div class="photo-label">${plan.name}</div>
                 `;
 

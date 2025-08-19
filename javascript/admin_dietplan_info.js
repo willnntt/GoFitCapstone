@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const BASE_IMAGE_PATH = '/Webapp/assets/images/';
     const urlParams = new URLSearchParams(window.location.search);
     let planId = urlParams.get('plan_id') || null;
 
@@ -7,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function fetchFoodData(callback) {
         console.log("Fetching food data...");
-        fetch('..load_food.php')
+        fetch('../load_food.php')
             .then(response => response.json())
             .then(data => {
                 console.log("Fetched food data:", data);
@@ -204,22 +205,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (data.image) {
-                    imagePreview.src = data.image;
+                    imagePreview.src = BASE_IMAGE_PATH + data.image;
                     pictureBox.classList.add('has-image');
                 } else {
                     imagePreview.src = "";
                     pictureBox.classList.remove('has-image');
                 }
-                console.log('Image URL set to:', data.image);
-
-                // ⬇️ Also set values in the edit form popup
-                const nameInput = document.querySelector('#editPlanMenu input[name="name"]');
-                const descText = document.querySelector('#editPlanMenu textarea[name="description"]');
-                const idInput = document.querySelector('#editPlanMenu input[name="plan_id"]'); // hidden input for ID
-
-                if (nameInput) nameInput.value = data.name || '';
-                if (descText) descText.value = data.description || '';
-                if (idInput) idInput.value = planId;
+                console.log('Image URL set to:', BASE_IMAGE_PATH + data.image);
 
                 // Load meals into the tables
                 const meals = data.data;
@@ -328,22 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
         dayDisplay.textContent = `Day ${currentDay}`;
     }
 
-    function populateEditForm(data) {
-        const form = document.querySelector('.form-box form');
-        form.plan_id.value = data.plan_id || data.id || '';
-        form.name.value = data.name || '';
-        form.description.value = data.description || '';
-
-        const previewImg = document.getElementById('dietImagePreviewImg');
-        if (data.image) {
-            previewImg.src = data.image;
-            previewImg.style.display = 'block';
-        } else {
-            previewImg.src = '';
-            previewImg.style.display = 'none';
-        }
-    }
-
     // Upload image preview and button logic
     const fileInput = document.getElementById('dietImageInput');
     const uploadBtn = document.getElementById('uploadImageBtn');
@@ -369,21 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchBtn) searchBtn.addEventListener('click', searchFood);
 
     editBtn.addEventListener('click', () => {
-        fetch(`admin_load_dietplan_meal.php?plan_id=${planId}&day_number=1`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                openMenu(planId, 'edit');
-                populateEditForm({
-                plan_id: planId,
-                name: data.name,
-                description: data.description,
-                image: data.image || '' // if you added image in PHP response
-                });
-            } else {
-                alert('Failed to load plan data');
-            }
-        });
+        window.location.href = `admin_diet_record.php?plan_id=${planId}`;
     });
 
 

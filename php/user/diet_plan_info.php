@@ -25,6 +25,11 @@
             <div class="menu-toggle">
                 <img src="../../assets/icons/hamburger.png" alt="Menu" class="hamburger-icon">
             </div>
+
+            <div class="sidebar-toggle-arrow" style="display: none;">
+                <img src="../../assets/icons/arrow-right.png" alt="Show Sidebar" class="icon">
+            </div>
+
             <ul>
                 <li>
                     <a href="dashboard.php">
@@ -50,7 +55,7 @@
                         </div>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="diet_plan.php">
                         <div class="nav-item">
                             <img src="../../assets/icons/diet.png" alt="Diet Icon" class="icon">
@@ -58,7 +63,7 @@
                         </div>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="setting.php">
                         <div class="nav-item">
                             <img src="../../assets/icons/setting.png" alt="Setting Icon" class="icon">

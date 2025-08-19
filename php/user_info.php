@@ -164,7 +164,6 @@
                             <option value="0.25">0.25 kg</option>
                             <option value="0.5">0.5 kg</option>
                             <option value="0.75">0.75 kg</option>
-                            <option value="1">1 kg</option>
                         </select>
                     </div>
 

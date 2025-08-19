@@ -5,14 +5,13 @@
     $error = '';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $username = trim($_POST['username'] ?? '');
         $email = trim($_POST['email'] ?? '');
         $password = trim($_POST['password'] ?? '');
 
-        if ($username && $email && $password) {
+        if ($email && $password) {
             // Use prepared statement to prevent SQL injection
-            $stmt = $conn->prepare("SELECT * FROM user_data WHERE username = ? AND email = ? LIMIT 1");
-            $stmt->bind_param("ss", $username, $email);
+            $stmt = $conn->prepare("SELECT * FROM user_data WHERE email = ? LIMIT 1");
+            $stmt->bind_param("s", $email);
             $stmt->execute();
             $result = $stmt->get_result();
 
@@ -25,7 +24,6 @@
                         exit;
                     } else {
                         $_SESSION['user_id'] = $user['user_id'];
-                        $_SESSION['username'] = $user['username'];
                         $_SESSION['email'] = $user['email'];
                         header('Location: user/dashboard.php');
                         exit;
@@ -67,7 +65,6 @@
             <?php endif; ?>
             
             <form method="post" class="form">
-                <input type="text" name="username" placeholder="Username" class="input" required>
                 <input type="email" name="email" placeholder="email@domain.com" class="input" required>
                 
                 <div class="input-container">
