@@ -100,7 +100,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>GoFit | User Info</title>
+<title>GoFit | Create Account</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="../css/user.css">
 </head>

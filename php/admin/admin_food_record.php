@@ -40,7 +40,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diet Tracker</title>
+  <title>GoFit | Food Database</title>
   <link rel="stylesheet" href="../../css/sidebar.css" />
   <link rel="stylesheet" href="../../css/admin_database.css" />
 </head>
@@ -66,7 +66,7 @@
             </div>
           </a>
         </li>
-        <li class="active">
+        <li>
           <a href="exercise_database.php">
             <div class="nav-item">
               <img src="../../assets/icons/exercise.png" alt="Exercise Icon" class="icon">
@@ -82,7 +82,7 @@
             </div>
           </a>
         </li>
-        <li>
+        <li class="active">
           <a href="food_database.php">
             <div class="nav-item">
               <img src="../../assets/icons/food.png" alt="Food Icon" class="icon">
@@ -100,7 +100,7 @@
       </div>
 
       <div class="sub-header">
-        <h2>Create New Exercise Record</h2>
+        <h2>Create New Food Record</h2>
 
         <a href="food_database.php">
           <button class="back-btn">Back</button>
