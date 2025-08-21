@@ -1,78 +1,33 @@
 <?php
-session_start();
-require_once __DIR__ . '/../../php/conn.php';
+    session_start();
+    include '../conn.php';
 
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Check if user is logged in (using your existing session system)
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-}
-
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $user_id = $_SESSION['user_id'];
-    $exercise_id = $_POST['exercise_id'];
-    $date = $_POST['date'];
-    $sets = $_POST['sets'];
-    $reps = $_POST['reps'];
-    $weight = $_POST['weight'];
-    $distance = $_POST['distance'];
-    $duration = $_POST['duration'];
-
-    // Insert into exercise_log (match your database structure)
-    $stmt = $conn->prepare("
-        INSERT INTO exercise_log 
-        (user_id, exercise_id, date, sets, reps, weight, distance, duration) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ");
-    $stmt->bind_param(
-        "iisiiidi", 
-        $user_id, 
-        $exercise_id, 
-        $date, 
-        $sets, 
-        $reps, 
-        $weight, 
-        $distance, 
-        $duration
-    );
-
-    if ($stmt->execute()) {
-        $_SESSION['message'] = "Exercise logged successfully!";
-    } else {
-        $error = "Error: " . $conn->error;
+    // Check if user is logged in
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../../index.php");
+        exit;
     }
-}
 
-// Fetch exercises for dropdown
-$exercises = [];
-$result = $conn->query("SELECT * FROM exercises");
-if ($result) {
-    $exercises = $result->fetch_all(MYSQLI_ASSOC);
-}
+    // Fetch exercises for dropdown
+    $exercises = [];
+    $result = $conn->query("SELECT * FROM exercises");
+    if ($result) {
+        $exercises = $result->fetch_all(MYSQLI_ASSOC);
+    }
 
-// Fetch user's exercise history
-$exercise_logs = [];
-$user_id = $_SESSION['user_id'];
-$result = $conn->query("
-    SELECT el.*, e.name AS exercise_name 
-    FROM exercise_log el
-    JOIN exercises e ON el.exercise_id = e.exercise_id
-    WHERE el.user_id = $user_id
-    ORDER BY el.date DESC
-");
-if ($result) {
-    $exercise_logs = $result->fetch_all(MYSQLI_ASSOC);
-}
+    // Fetch user's exercise history
+    $exercise_logs = [];
+    $user_id = $_SESSION['user_id'];
+    $result = $conn->query("
+        SELECT el.*, e.name AS exercise_name 
+        FROM exercise_log el
+        JOIN exercises e ON el.exercise_id = e.exercise_id
+        WHERE el.user_id = $user_id
+        ORDER BY el.date DESC
+    ");
+    if ($result) {
+        $exercise_logs = $result->fetch_all(MYSQLI_ASSOC);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -81,13 +36,10 @@ if ($result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercise Log | GoFit</title>
+    <title>GoFit | Exercise Log</title>
 
-    <!-- CSS Files -->
     <link rel="stylesheet" href="../../css/exercise.css">
     <link rel="stylesheet" href="../../css/sidebar.css">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -170,7 +122,7 @@ if ($result) {
                     <div class="empty-state">
                         No exercises added yet
                         <div class="exercise-picture">
-                            <img src="../../images/exercise-placeholder.jpg" alt="Exercise illustration">
+                            <img src="" alt="Exercise illustration">
                         </div>
                     </div>
                 </div>

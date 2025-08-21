@@ -42,7 +42,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Settings</title>
+    <title>GoFit | Settings</title>
     <link rel="stylesheet" href="../../css/setting.css">
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

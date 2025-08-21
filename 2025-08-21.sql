@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2025 at 07:44 AM
+-- Generation Time: Aug 21, 2025 at 04:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,9 +39,9 @@ CREATE TABLE `diet_plans` (
 --
 
 INSERT INTO `diet_plans` (`plan_id`, `name`, `description`, `image`) VALUES
-(1, 'Keto Diet', 'A low-carbohydrate, High-fat diet plan for the body to shift its fuel source from carbohydrates to fats.', '/Webapp/assets/images/1754665720_house.png'),
-(3, 'Keto Dietin', 'Hello this is a description', '/Webapp/assets/images/1754665674_Pen Tool Practise 1.jpg'),
-(5, 'Newest Diet', 'Description full description', '/Webapp/assets/images/1754666224_BaconColors.png');
+(1, 'Keto Diet', 'A low-carbohydrate, High-fat diet plan for the body to shift its fuel source from carbohydrates to fats.', '1754665720_house.png'),
+(3, 'Keto Dietin', 'Hello this is a description', '1754665674_Pen Tool Practise 1.jpg'),
+(5, 'Newest Diet', 'Description full description', '1755415882_fruit.jpg');
 
 -- --------------------------------------------------------
 
@@ -86,7 +86,7 @@ CREATE TABLE `diet_plan_meals` (
   `day_id` int(11) NOT NULL,
   `meal_type` varchar(50) NOT NULL,
   `food_id` int(11) NOT NULL,
-  `amount` float NOT NULL
+  `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -97,7 +97,11 @@ INSERT INTO `diet_plan_meals` (`meal_id`, `day_id`, `meal_type`, `food_id`, `amo
 (2, 1, 'lunch', 4, 1),
 (3, 1, 'breakfast', 5, 1),
 (4, 1, 'breakfast', 7, 1),
-(6, 2, 'breakfast', 6, 1);
+(6, 2, 'breakfast', 6, 1),
+(7, 1, 'lunch', 6, 3),
+(8, 15, 'breakfast', 1, 2),
+(9, 15, 'breakfast', 2, 1),
+(10, 15, 'lunch', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -109,17 +113,18 @@ CREATE TABLE `exercises` (
   `exercise_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `category` varchar(50) NOT NULL,
-  `difficulty` varchar(50) NOT NULL,
-  `description` text NOT NULL
+  `difficulty` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `exercises`
 --
 
-INSERT INTO `exercises` (`exercise_id`, `name`, `category`, `difficulty`, `description`) VALUES
-(1, 'Dumbbell Bench Press', 'Strength', 'Intermediate', 'Dumbbell variant of bench press. Keep elbows levelled with shoulders and lift upwards, focusing the muscles on the pectorals.'),
-(2, 'Dumbbell Curls', 'Strength', 'Beginner', 'The basic beginner exercise, training the bicep muscles on both arms. Can alternate reps between each arm for variation. Avoid swinging your arms for improper form.');
+INSERT INTO `exercises` (`exercise_id`, `name`, `category`, `difficulty`) VALUES
+(1, 'Dumbbell Bench Press', 'Strength', 'Intermediate'),
+(2, 'Dumbbell Curls', 'Strength', 'Beginner'),
+(8, 'Jogging', 'Aerobic', 'Beginner'),
+(9, 'Running', 'Aerobic', 'Beginner');
 
 -- --------------------------------------------------------
 
@@ -132,12 +137,26 @@ CREATE TABLE `exercise_log` (
   `user_id` int(11) NOT NULL,
   `exercise_id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `sets` int(11) NOT NULL,
+  `sets` int(11) DEFAULT NULL,
   `reps` int(11) DEFAULT NULL,
   `weight` int(11) DEFAULT NULL,
-  `distance` float(10,0) NOT NULL,
-  `duration` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `distance` float(10,2) DEFAULT NULL,
+  `duration` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `exercise_log`
+--
+
+INSERT INTO `exercise_log` (`log_id`, `user_id`, `exercise_id`, `date`, `sets`, `reps`, `weight`, `distance`, `duration`) VALUES
+(14, 2, 1, '2025-08-19', 1, 0, 10, 0.00, '00:00:00'),
+(15, 2, 1, '2025-08-19', 1, 0, 0, 0.00, '00:00:00'),
+(16, 2, 1, '2025-08-19', 1, 0, 0, 0.00, '00:00:00'),
+(17, 2, 1, '2025-08-19', 1, 0, 0, 0.00, '00:00:00'),
+(18, 2, 9, '2025-08-19', 1, 0, 0, 0.00, '00:00:00'),
+(34, 2, 1, '2025-08-21', 1, 0, 5, 0.00, '00:00:00'),
+(35, 2, 1, '2025-08-21', 2, 0, 0, 0.00, '00:00:00'),
+(37, 2, 8, '2025-08-21', 1, 0, 0, 0.00, '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -168,11 +187,7 @@ INSERT INTO `foods` (`food_id`, `name`, `brand`, `calories`, `portion_unit`, `ca
 (6, 'Roti Canai (with Dhal)', 'Mamak', 350, '1 piece', 35.0, 7.0, 17.0),
 (7, 'Teh Tarik (Kaw)', 'Teh Tarik Place', 160, '1 cup', 28.0, 3.0, 5.0),
 (8, '100 Plus (Can)', '100 Plus', 120, '1 cup', 30.0, 0.0, 0.0),
-(9, 'Hamburger', 'McDonald', 500, '1 serving', 65.0, 40.0, 17.0),
-(10, 'White Bread', 'Gardenia', 70, '1 slice', 14.0, 3.0, 1.0),
-(11, 'White Bread', 'Gardenia', 70, '1 slice', 14.0, 3.0, 1.0),
-(12, 'White Bread', 'Gardenia', 70, '1 slice', 14.0, 3.0, 1.0),
-(13, 'Brown Rice', '-', 112, '100g', 24.0, 2.3, 0.8);
+(9, 'Hamburger', 'McDonald\'s', 500, '1 serving', 65.0, 40.0, 17.0);
 
 -- --------------------------------------------------------
 
@@ -187,7 +202,7 @@ CREATE TABLE `meal_log` (
   `date` date NOT NULL,
   `meal_type` varchar(50) NOT NULL,
   `calories` int(11) NOT NULL,
-  `amount` float NOT NULL,
+  `amount` int(11) NOT NULL,
   `carbs` float(11,1) NOT NULL,
   `protein` float(11,1) NOT NULL,
   `fats` float(11,1) NOT NULL
@@ -236,7 +251,9 @@ CREATE TABLE `user_data` (
 
 INSERT INTO `user_data` (`user_id`, `username`, `password`, `email`, `dob`, `gender`, `weight`, `height`, `bmi`, `goal_weight`, `calorie_goal`, `activity_level`, `register_date`, `weight_change`, `age`, `bmr`, `tdee`) VALUES
 (1, 'admin', '$2y$10$dDFAdyLyrvU3KTUaMdtlFOVEDAMoG0bWexAMzUru/syU.rIT1qcUG', 'gofitadmin@gmail.com', '0000-00-00', '', 0.0, 0.0, 0.0, 0.0, 0, '', '0000-00-00', 0.00, 0, 0.0, 0.0),
-(2, 'rice', '$2y$10$yv5bFE0Hkbz6pFIYyQPKUu.auVpUW8O7fIYr0f2I3QSSz4W.Hh6wi', 'abc@gmail.com', '2005-05-05', 'Male', 64.5, 178.0, 20.4, 68.0, 2456, 'sedentary', '2025-08-10', 0.75, 20, 1693.2, 2328.1);
+(2, 'rice', '$2y$10$yv5bFE0Hkbz6pFIYyQPKUu.auVpUW8O7fIYr0f2I3QSSz4W.Hh6wi', 'abc@gmail.com', '2005-05-05', 'Male', 64.5, 178.0, 20.4, 68.0, 2456, 'sedentary', '2025-08-10', 0.75, 20, 1693.2, 2328.1),
+(4, 'NOTADMIN', '$2y$10$mmLItEVr80FGd9GoLH9zHugRLB8lZZktBkW1GDlgsMzLkNVXge6v2', 'stickmanodyssey@gmail.com', '2000-01-01', 'Male', 62.5, 154.4, 26.2, 73.1, 2380, 'Sedentary', '2025-08-18', 0.50, 25, 1524.7, 1829.7),
+(7, 'willard', '$2y$10$Dgi0To/bqYhEI0qK3WoPzef.6l8AJGWIEEo6Vs3bSdcrQwGiKp/Cm', 'willard@gmail.com', '2000-05-14', 'Male', 64.5, 169.5, 22.5, 65.0, 1622, 'active', '2025-08-19', 0.75, 25, 1661.3, 2446.7);
 
 -- --------------------------------------------------------
 
@@ -256,7 +273,9 @@ CREATE TABLE `user_diet_plans` (
 --
 
 INSERT INTO `user_diet_plans` (`id`, `user_id`, `plan_id`, `start_date`) VALUES
-(1, 2, 3, '2025-08-14');
+(11, 6, 5, '2025-08-19'),
+(12, 7, 3, '2025-08-19'),
+(13, 2, 5, '2025-08-19');
 
 --
 -- Indexes for dumped tables
@@ -336,43 +355,43 @@ ALTER TABLE `diet_plan_days`
 -- AUTO_INCREMENT for table `diet_plan_meals`
 --
 ALTER TABLE `diet_plan_meals`
-  MODIFY `meal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `meal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `exercises`
 --
 ALTER TABLE `exercises`
-  MODIFY `exercise_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `exercise_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `exercise_log`
 --
 ALTER TABLE `exercise_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `foods`
 --
 ALTER TABLE `foods`
-  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `meal_log`
 --
 ALTER TABLE `meal_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `user_data`
 --
 ALTER TABLE `user_data`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_diet_plans`
 --
 ALTER TABLE `user_diet_plans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

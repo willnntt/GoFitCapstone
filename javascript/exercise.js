@@ -37,6 +37,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function isAerobicExercise(exerciseId) {
+        const exercise = availableExercises.find(e => e.exercise_id == exerciseId);
+        return exercise && exercise.category.toLowerCase() === 'aerobic';
+    }
+
     function changeDate(direction) {
         const date = new Date(currentDate);
         date.setDate(date.getDate() + direction);
@@ -48,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const today = new Date().toISOString().split('T')[0];
         const isToday = currentDate === today;
 
-        startSessionBtn.style.display = isToday ? 'block' : 'none';
+        startSessionBtn.style.visibility = isToday ? 'visible' : 'hidden';
         if (!isToday && isSessionActive) {
             endSession();
         }
@@ -338,13 +343,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const message = isToday ? 'No exercises added yet!' : 'No exercises logged for this date';
 
             exerciseDisplay.innerHTML = `
-                <div class="empty-state">
-                    ${message}
-                    <div class="exercise-picture">
-                        <i class="fas fa-dumbbell" style="font-size: 80px; color: #ddd; margin: 20px;"></i>
-                    </div>
+            <div class="empty-state">
+                ${message}
+                <div class="exercise-picture">
+                    <i class="fas fa-dumbbell" style="font-size: 80px; color: #ddd; margin: 20px;"></i>
                 </div>
-            `;
+            </div>
+        `;
             return;
         }
 
@@ -353,9 +358,14 @@ document.addEventListener('DOMContentLoaded', function () {
         loggedExercises.forEach(exercise => {
             const key = `${exercise.exercise_id}_${exercise.exercise_name}`;
             if (!groupedExercises[key]) {
+                // Check if this exercise is aerobic
+                const isAerobic = isAerobicExercise(exercise.exercise_id);
+                console.log(`Exercise ${exercise.exercise_name} (ID: ${exercise.exercise_id}) is aerobic: ${isAerobic}`);
+
                 groupedExercises[key] = {
                     exercise_id: exercise.exercise_id,
                     exercise_name: exercise.exercise_name,
+                    is_aerobic: isAerobic,
                     logs: []
                 };
             }
@@ -366,30 +376,71 @@ document.addEventListener('DOMContentLoaded', function () {
             const wrapper = document.createElement('div');
             wrapper.className = 'exercise-log';
 
+            exerciseGroup.logs.sort((a, b) => a.log_id - b.log_id);
+
+            let setCounter = 1;
             let setsHtml = '';
-            exerciseGroup.logs.forEach((log, index) => {
-                setsHtml += `
-                    <div class="exercise-row" data-log-id="${log.log_id}">
-                        <label>Set ${index + 1}:</label>
-                        <label>Weight (kg):</label>
-                        <input type="number" placeholder="0" class="exercise-weight" value="${log.weight || ''}" 
-                               onchange="updateExerciseLog(${log.log_id}, 'weight', this.value)" />
-                        <label>Reps:</label>
-                        <input type="number" placeholder="0" class="exercise-reps" value="${log.reps || ''}" 
-                               onchange="updateExerciseLog(${log.log_id}, 'reps', this.value)" />
+            exerciseGroup.logs.forEach(log => {
+                if (exerciseGroup.is_aerobic) {
+                    // Display distance and duration for aerobic exercises
+                    // Convert duration from HH:MM:SS to just MM:SS for the input
+                    let durationValue = log.duration || '00:00:00';
+                    if (durationValue.includes(':')) {
+                        const parts = durationValue.split(':');
+                        if (parts.length === 3) {
+                            // Extract minutes and seconds, ignore hours
+                            durationValue = `${parts[1]}:${parts[2]}`;
+                        }
+                    }
+
+                    setsHtml += `
+                    <div class="exercise-row aerobic-row" data-log-id="${log.log_id}" data-exercise-id="${exerciseGroup.exercise_id}">
+                        <span class="set-label">Lap ${setCounter}:</span>
+                        <div class="input-group">
+                            <label>Distance (km)</label>
+                            <input type="number" placeholder="0" step="0.1" class="exercise-distance" value="${log.distance || ''}" 
+                                   onchange="updateExerciseLog(${log.log_id}, 'distance', this.value)" />
+                        </div>
+                        <div class="input-group">
+                            <label>Duration</label>
+                            <input type="text" class="exercise-duration" value="${durationValue}" 
+                                   onchange="formatAndUpdateDuration(${log.log_id}, this.value)" 
+                                   placeholder="MM:SS" />
+                        </div>
                         <button class="remove-set-btn" data-log-id="${log.log_id}">×</button>
                     </div>
                 `;
+                setCounter++;
+                } else {
+                    // Display sets/reps/weight for strength exercises
+                    setsHtml += `
+                    <div class="exercise-row strength-row" data-log-id="${log.log_id}" data-exercise-id="${exerciseGroup.exercise_id}">
+                        <span class="set-label">Set ${setCounter}:</span>
+                        <div class="input-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" placeholder="0" class="exercise-weight" value="${log.weight || ''}" 
+                                   onchange="updateExerciseLog(${log.log_id}, 'weight', this.value)" />
+                        </div>
+                        <div class="input-group">
+                            <label>Reps</label>
+                            <input type="number" placeholder="0" class="exercise-reps" value="${log.reps || ''}" 
+                                   onchange="updateExerciseLog(${log.log_id}, 'reps', this.value)" />
+                        </div>
+                        <button class="remove-set-btn" data-log-id="${log.log_id}">×</button>
+                    </div>
+                `;
+                setCounter++;
+                }
             });
 
             wrapper.innerHTML = `
-                <h3>${exerciseGroup.exercise_name}</h3>
-                ${setsHtml}
-                <div class="exercise-controls">
-                    <button class="add-set-btn" data-exercise-id="${exerciseGroup.exercise_id}">+ Add Set</button>
-                    <button class="remove-exercise-btn" data-exercise-id="${exerciseGroup.exercise_id}">Remove Exercise</button>
-                </div>
-            `;
+            <h3>${exerciseGroup.exercise_name}</h3>
+            ${setsHtml}
+            <div class="exercise-controls">
+                <button class="add-set-btn" data-exercise-id="${exerciseGroup.exercise_id}" data-is-aerobic="${exerciseGroup.is_aerobic}">+ Add ${exerciseGroup.is_aerobic ? 'Lap' : 'Set'}</button>
+                <button class="remove-exercise-btn" data-exercise-id="${exerciseGroup.exercise_id}">Remove Exercise</button>
+            </div>
+        `;
 
             exerciseDisplay.appendChild(wrapper);
         });
@@ -398,12 +449,14 @@ document.addEventListener('DOMContentLoaded', function () {
         addExerciseControlListeners();
     }
 
+
     function addExerciseControlListeners() {
-        // Add set buttons
+        // Add set/session buttons
         document.querySelectorAll('.add-set-btn').forEach(btn => {
             btn.addEventListener('click', function () {
                 const exerciseId = this.getAttribute('data-exercise-id');
-                addExerciseSet(exerciseId);
+                const isAerobic = this.getAttribute('data-is-aerobic') === 'true';
+                addExerciseSet(exerciseId, isAerobic);
             });
         });
 
@@ -424,9 +477,31 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function formatAndUpdateDuration(logId, value) {
+        // Convert MM:SS to HH:MM:SS format
+        if (value.includes(':')) {
+            const parts = value.split(':');
+            if (parts.length === 2) {
+                const minutes = parseInt(parts[0]) || 0;
+                const seconds = parseInt(parts[1]) || 0;
+                const hours = Math.floor(minutes / 60);
+                const remainingMinutes = minutes % 60;
+
+                const formattedDuration = `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                updateExerciseLog(logId, 'duration', formattedDuration);
+                return;
+            }
+        }
+
+        // If format is invalid, just pass the value as is
+        updateExerciseLog(logId, 'duration', value);
+    }
+
     // Add exercise to log
     function addExercise(exerciseId, exerciseName) {
         console.log(`Adding exercise: ${exerciseName} (ID: ${exerciseId})`);
+
+        const isAerobic = isAerobicExercise(exerciseId);
 
         // Show loading state
         const addBtn = document.querySelector(`[data-exercise-id="${exerciseId}"]`);
@@ -438,9 +513,17 @@ document.addEventListener('DOMContentLoaded', function () {
         const formData = new FormData();
         formData.append('exercise_id', exerciseId);
         formData.append('date', currentDate);
-        formData.append('sets', 1);
-        formData.append('reps', 0);
-        formData.append('weight', 0);
+
+        if (isAerobic) {
+            // For aerobic exercises, add distance and duration
+            formData.append('distance', 0);
+            formData.append('duration', '00:00:00');
+        } else {
+            // For strength exercises, add sets/reps/weight
+            formData.append('sets', 1);
+            formData.append('reps', 0);
+            formData.append('weight', 0);
+        }
 
         const path = 'log_exercise.php';
         fetch(path, {
@@ -474,13 +557,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Add exercise set
-    function addExerciseSet(exerciseId) {
+    function addExerciseSet(exerciseId, isAerobic) {
         const formData = new FormData();
         formData.append('exercise_id', exerciseId);
         formData.append('date', currentDate);
-        formData.append('sets', 1);
-        formData.append('reps', 0);
-        formData.append('weight', 0);
+
+        if (isAerobic) {
+            formData.append('distance', 0);
+            formData.append('duration', '00:00:00');
+            formData.append('sets', nextSetNumber);
+        } else {
+            // Count existing sets from DOM
+            const existingSets = document.querySelectorAll(
+                `.exercise-row[data-exercise-id="${exerciseId}"]`
+            ).length;
+
+            const nextSetNumber = existingSets + 1;
+            formData.append('sets', nextSetNumber);
+            formData.append('reps', 0);
+            formData.append('weight', 0);
+        }
 
         fetch('log_exercise.php', {
             method: 'POST',
@@ -489,15 +585,15 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showSuccess('Set added!');
+                    showSuccess(isAerobic ? 'Session added!' : 'Set added!');
                     loadExercisesForDate();
                 } else {
-                    showError('Error adding set: ' + data.message);
+                    showError('Error adding ' + (isAerobic ? 'session' : 'set') + ': ' + data.message);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                showError('Error adding set. Please try again.');
+                showError('Error adding ' + (isAerobic ? 'session' : 'set') + '. Please try again.');
             });
     }
 
@@ -607,7 +703,7 @@ document.addEventListener('DOMContentLoaded', function () {
             color: white;
         }
         
-        .remove-exercise-btn:hover, .remove-set-btn:hover {
+        .remove-set-btn:hover {
             background-color: #ff0000;
         }
         

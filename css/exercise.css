@@ -215,6 +215,7 @@ body {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    flex-wrap: nowrap; /* Prevent wrapping */
 }
 
 .exercise-row label {
@@ -315,14 +316,18 @@ body {
 }
 
 .remove-set-btn {
-    padding: 4px 8px;
-    font-size: 16px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
     border-radius: 50%;
     width: 28px;
     height: 28px;
+    cursor: pointer;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0; 
 }
 
 /* Popup Styles */
@@ -692,13 +697,19 @@ body {
     }
     
     .exercise-row {
-        flex-wrap: wrap;
-        gap: 5px;
+        flex-wrap: wrap; 
+        gap: 8px;
     }
     
     .exercise-row input {
-        width: 60px;
-    }
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 80px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+    text-align: center;
+}
     
     #popup {
         left: 50%;
@@ -736,13 +747,61 @@ body {
     }
     
     .exercise-controls {
-        flex-direction: column;
-        align-items: center;
-    }
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    justify-content: center;
+    flex-wrap: wrap;
+}
     
     .feedback-message {
         right: 10px;
         left: 10px;
         max-width: none;
     }
+}
+
+.exercise-row input.exercise-distance {
+    width: 80px;
+}
+
+.exercise-row input.exercise-duration {
+    width: 80px;
+}
+
+.exercise-row label {
+    min-width: 80px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+.set-label {
+    font-weight: 500;
+    color: #555;
+    min-width: 80px;
+    white-space: nowrap;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 100px; /* Ensure consistent width */
+}
+
+.input-group label {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.aerobic-row {
+    border-left: 4px solid #4CAF50;
+}
+
+.strength-row {
+    border-left: 4px solid #2196F3;
 }

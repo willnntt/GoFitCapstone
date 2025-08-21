@@ -78,7 +78,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GoFit - Dashboard</title>
+    <title>GoFit | Dashboard</title>
     <link rel="stylesheet" href="../../css/dashboard.css">
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
