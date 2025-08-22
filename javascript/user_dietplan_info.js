@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const BASE_IMAGE_PATH = '/Webapp/assets/images/';
+    const BASE_IMAGE_PATH = '../../assets/images/';
     const urlParams = new URLSearchParams(window.location.search);
     let planId = urlParams.get('plan_id') || null;
 

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const BASE_IMAGE_PATH = '/Webapp/assets/images/';
+    const BASE_IMAGE_PATH = '../../assets/images/';
 
     function loadDietPlans() {
         const container = document.querySelector('.scroll-container');
