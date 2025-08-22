@@ -8,6 +8,7 @@
       exit;
   }
 
+  $is_edit = false;
 
   $exercise = [
       'exercise_id' => '',
@@ -26,6 +27,7 @@
           $result = $stmt->get_result();
           if ($result && $result->num_rows === 1) {
               $exercise = $result->fetch_assoc();
+              $is_edit = true;
           }
           $stmt->close();
       }
@@ -98,7 +100,7 @@
       </div>
 
       <div class="sub-header">
-        <h2>Exercise Record</h2>
+        <h2><?php echo $is_edit ? 'Edit Exercise Record' : 'Create Exercise Record'; ?></h2>
         
         <a href="exercise_database.php">
           <button class="back-btn">Back</button>

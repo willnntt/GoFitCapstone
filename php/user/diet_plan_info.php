@@ -108,7 +108,6 @@
                 <div class="meal-title">
                     <span>Breakfast</span>
                 </div>
-                <i id="toggle-icon-breakfast" class="fa-solid fa-chevron-up"></i>
                 </div>
                 <table id="food-table-breakfast">
                 <thead>
@@ -137,7 +136,6 @@
                 <div class="meal-title">
                     <span>Lunch</span>
                 </div>
-                <i id="toggle-icon-lunch" class="fa-solid fa-chevron-up"></i>
                 </div>
                 <table id="food-table-lunch">
                 <thead>
@@ -166,7 +164,6 @@
                 <div class="meal-title">
                     <span>Dinner</span>
                 </div>
-                <i id="toggle-icon-dinner" class="fa-solid fa-chevron-up"></i>
                 </div>
                 <table id="food-table-dinner">
                 <thead>
@@ -195,7 +192,6 @@
                 <div class="meal-title">
                     <span>Snack</span>
                 </div>
-                <i id="toggle-icon-snack" class="fa-solid fa-chevron-up"></i>
                 </div>
                 <table id="food-table-snack">
                 <thead>
