@@ -10,24 +10,21 @@
 
         if ($email && $password) {
             // Use prepared statement to prevent SQL injection
-            $stmt = $conn->prepare("SELECT user_id, username, password FROM user_data WHERE email = ? LIMIT 1");
+            $stmt = $conn->prepare("SELECT * FROM user_data WHERE email = ? LIMIT 1");
             $stmt->bind_param("s", $email);
             $stmt->execute();
-            $stmt->store_result();
+            $result = $stmt->get_result();
 
-            if ($$stmt->num_rows == 1) {
-                $stmt->bind_result($user_id, $db_username, $db_password, $role);
-                $stmt->fetch();
-                if (password_verify($password, $db_password)) {       
-                // Regenerate session ID for security
-                    session_regenerate_id(true); 
-                    $_SESSION['user'] = $db_username;
-                    $_SESSION['userid'] = $user_id;
-
+            if ($result && $result->num_rows > 0) {
+                $user = $result->fetch_assoc();
+                if (password_verify($password, $user['password'])) {
                     if ($user['user_id'] == 1) { // Admin user
+                        $_SESSION['user_id'] = $user['user_id'];
                         header('Location: admin/user_database.php');
                         exit;
                     } else {
+                        $_SESSION['user_id'] = $user['user_id'];
+                        $_SESSION['email'] = $user['email'];
                         header('Location: user/dashboard.php');
                         exit;
                     }
@@ -39,11 +36,8 @@
             }
 
             $stmt->close();
-            header("Location: index.php");
-            exit();
         } else {
             $error = 'Please fill in all fields';
-            exit();
         }
     }
 ?>
