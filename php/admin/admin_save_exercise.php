@@ -12,8 +12,7 @@
         $sql = "UPDATE exercises 
                 SET name = '$name', 
                     category = '$category', 
-                    difficulty = '$difficulty', 
-                    description = '$description'
+                    difficulty = '$difficulty'
                 WHERE exercise_id = $exercise_id";
     } else {
         // INSERT new exercise
