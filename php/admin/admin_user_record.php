@@ -94,7 +94,7 @@
       </div>
 
       <div class="sub-header">
-        <h2>User Record</h2>
+        <h2>Edit User Record</h2>
 
         <a href="user_database.php">
           <button class="back-btn">Back</button>

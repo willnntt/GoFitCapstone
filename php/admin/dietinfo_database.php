@@ -107,7 +107,6 @@
             <span>Breakfast</span>
             <i class="fa-solid fa-plus openFoodMenu" data-meal="breakfast"></i>
           </div>
-          <i id="toggle-icon-breakfast" class="fa-solid fa-chevron-up"></i>
         </div>
         <table id="food-table-breakfast">
           <thead>
@@ -137,7 +136,6 @@
             <span>Lunch</span>
             <i class="fa-solid fa-plus openFoodMenu" data-meal="lunch"></i>
           </div>
-          <i id="toggle-icon-lunch" class="fa-solid fa-chevron-up"></i>
         </div>
         <table id="food-table-lunch">
           <thead>
@@ -167,7 +165,6 @@
             <span>Dinner</span>
             <i class="fa-solid fa-plus openFoodMenu" data-meal="dinner"></i>
           </div>
-          <i id="toggle-icon-dinner" class="fa-solid fa-chevron-up"></i>
         </div>
         <table id="food-table-dinner">
           <thead>
@@ -197,7 +194,6 @@
             <span>Snack</span>
             <i class="fa-solid fa-plus openFoodMenu" data-meal="snack"></i>
           </div>
-          <i id="toggle-icon-snack" class="fa-solid fa-chevron-up"></i>
         </div>
         <table id="food-table-snack">
           <thead>

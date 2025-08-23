@@ -52,7 +52,7 @@
             </div>
           </a>
         </li>
-        <li class="active">
+        <li>
           <a href="exercise_database.php">
             <div class="nav-item">
               <img src="../../assets/icons/exercise.png" alt="Exercise Icon" class="icon">
@@ -60,7 +60,7 @@
             </div>
           </a>
         </li>
-        <li>
+        <li class="active">
           <a href="diet_database.php">
             <div class="nav-item">
               <img src="../../assets/icons/diet.png" alt="Diet Icon" class="icon">
@@ -83,10 +83,10 @@
     <div class="main-content">
       <div class="header">
         <h1>GoFit Database Management</h1>
-      </div>
+      </div>  
 
       <div class="sub-header">
-        <h2>Create New Diet Plan</h2>
+        <h2><?php echo $is_edit ? 'Edit Diet Plan' : 'Create Diet Plan'; ?></h2>
 
         <a href="diet_database.php">
           <button class="back-btn">Back</button>
