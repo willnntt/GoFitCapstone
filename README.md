@@ -5,6 +5,6 @@
 4. Login with the provided test account below or create a new account.
 
 **Administrator Account:**
-Email: gofitadmin@gmail.com
-Password: admin123
+- Email: gofitadmin@gmail.com
+- Password: admin123
 
